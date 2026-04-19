@@ -46,6 +46,95 @@ const audiences = [
   },
 ];
 
+const useCases = [
+  {
+    title: 'Agriculture monitoring',
+    description: 'Track soil subsidence, irrigation-induced settlement and crop field deformation to protect yields and inform agri-insurance underwriting.',
+    tag: 'Agriculture',
+    accent: 'teal' as const,
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12" />
+        <path d="M12 6v6l4 2" />
+        <circle cx="6" cy="6" r="2" />
+        <path d="M6 8v8" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Real estate & urban growth',
+    description: 'Identify ground subsidence, foundation risk and land movement near development sites before construction begins or assets are acquired.',
+    tag: 'Real Estate',
+    accent: 'amber' as const,
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Dam & reservoir safety',
+    description: 'Continuous surveillance of slopes, foundations and spillways for early structural warning — weeks before visible failure signs emerge.',
+    tag: 'Infrastructure',
+    accent: 'teal' as const,
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 20h20" />
+        <path d="M5 20V8l7-6 7 6v12" />
+        <path d="M9 20v-5h6v5" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Pipeline & energy corridors',
+    description: 'Detect ground movement, erosion and third-party interference along critical energy infrastructure before leaks or failures occur.',
+    tag: 'Energy',
+    accent: 'teal' as const,
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+        <line x1="4" y1="22" x2="4" y2="15" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Mining & industrial sites',
+    description: 'Monitor tailings pond integrity, pit slope stability and subsidence at active and legacy extraction sites with satellite precision.',
+    tag: 'Mining',
+    accent: 'amber' as const,
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Coastal & environmental',
+    description: 'Quantify shoreline erosion, wetland loss and land reclamation dynamics using repeat-pass satellite observation across wide coastal zones.',
+    tag: 'Environment',
+    accent: 'teal' as const,
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="2" y1="12" x2="22" y2="12" />
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Insurance underwriting',
+    description: 'Replace subjective risk opinion with satellite-derived displacement history and risk scores for property, casualty and specialty portfolios.',
+    tag: 'Insurance',
+    accent: 'amber' as const,
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      </svg>
+    ),
+  },
+];
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#07090e] text-white">
@@ -116,31 +205,14 @@ export default function Home() {
               className="relative overflow-hidden rounded-xl border border-white/8"
               style={{ height: 460, background: '#090c14' }}
             >
-              {/* Coordinate grid */}
               <div className="absolute inset-0 grid-bg pointer-events-none" />
 
               {/* Displacement heat zones */}
-              <div className="absolute" style={{
-                width: 220, height: 145,
-                left: '22%', top: '28%',
-                background: 'radial-gradient(ellipse at center, rgba(232,169,74,0.42) 0%, rgba(232,169,74,0.12) 48%, transparent 70%)',
-                filter: 'blur(6px)',
-                transform: 'rotate(-12deg)',
-              }} />
-              <div className="absolute" style={{
-                width: 90, height: 66,
-                left: '50%', top: '37%',
-                background: 'radial-gradient(ellipse at center, rgba(239,68,68,0.55) 0%, rgba(239,68,68,0.14) 50%, transparent 70%)',
-                filter: 'blur(3px)',
-              }} />
-              <div className="absolute" style={{
-                width: 160, height: 110,
-                left: '10%', top: '50%',
-                background: 'radial-gradient(ellipse at center, rgba(94,207,202,0.22) 0%, rgba(94,207,202,0.06) 50%, transparent 70%)',
-                filter: 'blur(6px)',
-              }} />
+              <div className="absolute" style={{ width: 220, height: 145, left: '22%', top: '28%', background: 'radial-gradient(ellipse at center, rgba(232,169,74,0.42) 0%, rgba(232,169,74,0.12) 48%, transparent 70%)', filter: 'blur(6px)', transform: 'rotate(-12deg)' }} />
+              <div className="absolute" style={{ width: 90, height: 66, left: '50%', top: '37%', background: 'radial-gradient(ellipse at center, rgba(239,68,68,0.55) 0%, rgba(239,68,68,0.14) 50%, transparent 70%)', filter: 'blur(3px)' }} />
+              <div className="absolute" style={{ width: 160, height: 110, left: '10%', top: '50%', background: 'radial-gradient(ellipse at center, rgba(94,207,202,0.22) 0%, rgba(94,207,202,0.06) 50%, transparent 70%)', filter: 'blur(6px)' }} />
 
-              {/* Crosshair at critical zone */}
+              {/* Crosshair */}
               <div className="absolute" style={{ left: 'calc(50% + 13px)', top: 'calc(37% + 9px)' }}>
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
                   <circle cx="14" cy="14" r="5" stroke="rgba(239,68,68,0.65)" strokeWidth="0.8" />
@@ -152,31 +224,17 @@ export default function Home() {
               </div>
 
               {/* Header bar */}
-              <div
-                className="absolute inset-x-0 top-0 flex items-center justify-between px-4 py-2.5 border-b border-white/6"
-                style={{ background: 'rgba(7,9,14,0.75)', backdropFilter: 'blur(8px)' }}
-              >
+              <div className="absolute inset-x-0 top-0 flex items-center justify-between px-4 py-2.5 border-b border-white/6" style={{ background: 'rgba(7,9,14,0.75)', backdropFilter: 'blur(8px)' }}>
                 <div className="flex items-center gap-2">
                   <span className="live-dot" style={{ width: 5, height: 5 }} />
-                  <span style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.14em', color: '#5ecfca', textTransform: 'uppercase' }}>
-                    LIVE · InSAR STACK-12
-                  </span>
+                  <span style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.14em', color: '#5ecfca', textTransform: 'uppercase' }}>LIVE · InSAR STACK-12</span>
                 </div>
-                <span style={{ fontFamily: 'monospace', fontSize: 9, color: '#374151' }}>
-                  2026-04-19 · 14:23 UTC
-                </span>
+                <span style={{ fontFamily: 'monospace', fontSize: 9, color: '#374151' }}>2026-04-19 · 14:23 UTC</span>
               </div>
 
               {/* Legend */}
-              <div
-                className="absolute right-3 top-10 flex flex-col gap-1.5 rounded p-2"
-                style={{ background: 'rgba(7,9,14,0.7)', backdropFilter: 'blur(4px)' }}
-              >
-                {[
-                  { color: '#ef4444', label: 'Critical' },
-                  { color: '#e8a94a', label: 'Elevated' },
-                  { color: '#5ecfca', label: 'Stable' },
-                ].map((item) => (
+              <div className="absolute right-3 top-10 flex flex-col gap-1.5 rounded p-2" style={{ background: 'rgba(7,9,14,0.7)', backdropFilter: 'blur(4px)' }}>
+                {[{ color: '#ef4444', label: 'Critical' }, { color: '#e8a94a', label: 'Elevated' }, { color: '#5ecfca', label: 'Stable' }].map((item) => (
                   <div key={item.label} className="flex items-center gap-1.5">
                     <div style={{ width: 7, height: 7, borderRadius: '50%', background: item.color, opacity: 0.85 }} />
                     <span style={{ fontFamily: 'monospace', fontSize: 8, color: '#6b7280' }}>{item.label}</span>
@@ -184,38 +242,20 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* Coordinate label */}
-              <div style={{ position: 'absolute', bottom: 76, left: 12, fontFamily: 'monospace', fontSize: 8, color: '#1f2937' }}>
-                47.23°N  8.45°E
-              </div>
+              <div style={{ position: 'absolute', bottom: 76, left: 12, fontFamily: 'monospace', fontSize: 8, color: '#1f2937' }}>47.23°N  8.45°E</div>
 
-              {/* Data readout strip */}
-              <div
-                className="absolute inset-x-0 bottom-0 border-t border-white/6 px-4 py-3"
-                style={{ background: 'rgba(0,0,0,0.72)', backdropFilter: 'blur(8px)' }}
-              >
+              {/* Data strip */}
+              <div className="absolute inset-x-0 bottom-0 border-t border-white/6 px-4 py-3" style={{ background: 'rgba(0,0,0,0.72)', backdropFilter: 'blur(8px)' }}>
                 <div className="flex items-end justify-between">
                   <div>
-                    <p style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.1em', color: '#6b7280', textTransform: 'uppercase', marginBottom: 3 }}>
-                      Δ Ground displacement · 7d
-                    </p>
-                    <p style={{ fontFamily: 'monospace', fontSize: 26, color: '#e8a94a', lineHeight: 1, letterSpacing: '-0.02em' }}>
-                      +2.8 mm
-                    </p>
-                    <p style={{ fontFamily: 'monospace', fontSize: 8, color: '#4b5563', marginTop: 2 }}>
-                      NE vector · DAM-02 · Zurich, CH
-                    </p>
+                    <p style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.1em', color: '#6b7280', textTransform: 'uppercase', marginBottom: 3 }}>Δ Ground displacement · 7d</p>
+                    <p style={{ fontFamily: 'monospace', fontSize: 26, color: '#e8a94a', lineHeight: 1, letterSpacing: '-0.02em' }}>+2.8 mm</p>
+                    <p style={{ fontFamily: 'monospace', fontSize: 8, color: '#4b5563', marginTop: 2 }}>NE vector · DAM-02 · Zurich, CH</p>
                   </div>
                   <div className="text-right">
-                    <p style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.1em', color: '#6b7280', textTransform: 'uppercase', marginBottom: 3 }}>
-                      Risk score
-                    </p>
-                    <p style={{ fontFamily: 'monospace', fontSize: 26, color: '#ef4444', lineHeight: 1, letterSpacing: '-0.02em' }}>
-                      78 / 100
-                    </p>
-                    <p style={{ fontFamily: 'monospace', fontSize: 8, color: '#4b5563', marginTop: 2 }}>
-                      Elevated · Δ +6 from baseline
-                    </p>
+                    <p style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.1em', color: '#6b7280', textTransform: 'uppercase', marginBottom: 3 }}>Risk score</p>
+                    <p style={{ fontFamily: 'monospace', fontSize: 26, color: '#ef4444', lineHeight: 1, letterSpacing: '-0.02em' }}>78 / 100</p>
+                    <p style={{ fontFamily: 'monospace', fontSize: 8, color: '#4b5563', marginTop: 2 }}>Elevated · Δ +6 from baseline</p>
                   </div>
                 </div>
               </div>
@@ -229,13 +269,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
             {metrics.map((m, i) => (
-              <motion.div
-                key={m.label}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.07 }}
-              >
+              <motion.div key={m.label} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.07 }}>
                 <p className="font-mono text-2xl font-medium text-white">{m.value}</p>
                 <p className="mt-1 text-sm text-neutral-600">{m.label}</p>
               </motion.div>
@@ -249,11 +283,8 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-14">
             <p className="eyebrow mb-4">How it works</p>
-            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-              From orbit to operational decision
-            </h2>
+            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">From orbit to operational decision</h2>
           </div>
-
           <div className="grid gap-px lg:grid-cols-3" style={{ background: 'rgba(255,255,255,0.05)' }}>
             {steps.map((item, i) => (
               <motion.div
@@ -286,14 +317,9 @@ export default function Home() {
           <div className="grid gap-12 lg:grid-cols-[260px_1fr] lg:gap-16">
             <div>
               <p className="eyebrow mb-4">Built for</p>
-              <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-                Three types of risk teams
-              </h2>
-              <p className="mt-4 text-sm leading-6 text-neutral-500">
-                VIGIL-EARTH serves the full risk chain — underwriting, operations and government oversight.
-              </p>
+              <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">Three types of risk teams</h2>
+              <p className="mt-4 text-sm leading-6 text-neutral-500">VIGIL-EARTH serves the full risk chain — underwriting, operations and government oversight.</p>
             </div>
-
             <div className="grid gap-4 sm:grid-cols-3">
               {audiences.map((a, i) => (
                 <motion.div
@@ -321,6 +347,68 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Use cases ──────────────────────────────────────── */}
+      <section className="border-t border-white/5 px-6 py-24 sm:px-10 lg:px-16">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="eyebrow mb-4">Use cases</p>
+              <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+                Where VIGIL-EARTH is deployed
+              </h2>
+              <p className="mt-4 max-w-xl text-base leading-7 text-neutral-500">
+                From agricultural land to urban cores — any asset where ground movement, water change or structural shift represents financial or physical risk.
+              </p>
+            </div>
+            <Link
+              href="/solutions"
+              className="flex-shrink-0 self-start sm:self-auto flex items-center gap-1.5 text-sm text-primary-400 hover:text-primary-300 transition-colors"
+            >
+              View all solutions
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+              </svg>
+            </Link>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {useCases.map((item, i) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: i * 0.06 }}
+                className={`rounded-lg border border-white/6 bg-[#0d1018] p-6 card-hover ${item.accent === 'amber' ? 'accent-amber' : 'accent-teal'}`}
+              >
+                <div
+                  className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg"
+                  style={{
+                    background: item.accent === 'amber' ? 'rgba(232,169,74,0.1)' : 'rgba(94,207,202,0.1)',
+                    color: item.accent === 'amber' ? '#e8a94a' : '#5ecfca',
+                  }}
+                >
+                  {item.icon}
+                </div>
+                <div className="mb-2 flex items-center justify-between gap-2">
+                  <h3 className="text-sm font-semibold text-white">{item.title}</h3>
+                  <span
+                    className="flex-shrink-0 rounded px-1.5 py-0.5 text-[9px] font-mono tracking-wide"
+                    style={{
+                      background: item.accent === 'amber' ? 'rgba(232,169,74,0.08)' : 'rgba(94,207,202,0.08)',
+                      color: item.accent === 'amber' ? '#e8a94a' : '#5ecfca',
+                    }}
+                  >
+                    {item.tag}
+                  </span>
+                </div>
+                <p className="text-sm leading-6 text-neutral-500">{item.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA ────────────────────────────────────────────── */}
       <section className="border-t border-white/5 px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-7xl">
@@ -339,17 +427,11 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
-                <Link
-                  href="/contact"
-                  className="rounded-md bg-primary-400 px-6 py-3 text-sm font-semibold text-black hover:bg-primary-300 transition-colors text-center whitespace-nowrap"
-                >
+                <Link href="/contact" className="rounded-md bg-primary-400 px-6 py-3 text-sm font-semibold text-black hover:bg-primary-300 transition-colors text-center whitespace-nowrap">
                   Request demo
                 </Link>
-                <Link
-                  href="/contact"
-                  className="rounded-md border border-white/10 px-6 py-3 text-sm font-medium text-neutral-300 hover:border-white/20 hover:text-white transition-colors text-center whitespace-nowrap"
-                >
-                  Talk to risk team
+                <Link href="/reports" className="rounded-md border border-white/10 px-6 py-3 text-sm font-medium text-neutral-300 hover:border-white/20 hover:text-white transition-colors text-center whitespace-nowrap">
+                  View investor reports
                 </Link>
               </div>
             </div>
