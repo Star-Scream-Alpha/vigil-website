@@ -1,18 +1,13 @@
 interface FeatureCardProps {
   title: string;
   description: string;
-  accent?: 'teal' | 'amber';
 }
 
-export function FeatureCard({ title, description, accent = 'teal' }: FeatureCardProps) {
+export function FeatureCard({ title, description }: FeatureCardProps) {
   return (
-    <article
-      className={`border border-white/6 bg-[#0d1018] rounded-lg p-6 card-hover ${
-        accent === 'amber' ? 'accent-amber' : 'accent-teal'
-      }`}
-    >
-      <h3 className="text-sm font-semibold text-white">{title}</h3>
-      <p className="mt-2 text-sm leading-6 text-neutral-500">{description}</p>
+    <article className="rounded-lg bg-white p-6 shadow-card card-hover">
+      <h3 className="text-sm font-semibold text-[#171717]" style={{ letterSpacing: '-0.32px' }}>{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-[#666666]">{description}</p>
     </article>
   );
 }
