@@ -2,23 +2,14 @@
 
 import { motion } from 'framer-motion';
 import { SectionHeading } from '../../components/SectionHeading';
+import { AnimatedBg } from '../../components/AnimatedBg';
+
+const SPRING = { ease: [0.16, 1, 0.3, 1] as const };
 
 const pillars = [
-  {
-    n: '01',
-    title: 'Satellite-first approach',
-    body: 'Multi-source global data ingestion with enterprise security — no site visits, no manual surveys.',
-  },
-  {
-    n: '02',
-    title: 'AI-powered detection',
-    body: 'Machine learning algorithms trained on geospatial risk patterns to surface signals humans cannot see.',
-  },
-  {
-    n: '03',
-    title: 'Evidence-grade output',
-    body: 'Forensic-quality data accepted for underwriting decisions, claims validation and regulatory review.',
-  },
+  { n: '01', title: 'Satellite-first approach', body: 'Multi-source global data ingestion with enterprise security — no site visits, no manual surveys.' },
+  { n: '02', title: 'AI-powered detection', body: 'Machine learning algorithms trained on geospatial risk patterns to surface signals humans cannot see.' },
+  { n: '03', title: 'Evidence-grade output', body: 'Forensic-quality data accepted for underwriting decisions, claims validation and regulatory review.' },
 ];
 
 const stats = [
@@ -29,83 +20,80 @@ const stats = [
 ];
 
 const tech = [
-  {
-    title: 'SAR Interferometry',
-    body: 'Synthetic Aperture Radar measures ground displacement with millimeter precision across vast areas and through cloud cover.',
-  },
-  {
-    title: 'Geospatial AI',
-    body: 'Machine learning models identify anomalous patterns in terrain behavior, moisture and infrastructure response.',
-  },
-  {
-    title: 'Temporal Analysis',
-    body: 'Time-series processing reveals displacement trends and trajectories indicating emerging risk conditions weeks before visibility.',
-  },
+  { title: 'SAR Interferometry', body: 'Synthetic Aperture Radar measures ground displacement with millimeter precision across vast areas and through cloud cover.' },
+  { title: 'Geospatial AI', body: 'Machine learning models identify anomalous patterns in terrain behavior, moisture and infrastructure response.' },
+  { title: 'Temporal Analysis', body: 'Time-series processing reveals displacement trends and trajectories indicating emerging risk conditions weeks before visibility.' },
 ];
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-[#07090e] text-white">
+    <div className="min-h-screen bg-white text-[#171717]">
 
-      {/* ── Hero ───────────────────────────────────────────── */}
-      <section className="px-6 pt-20 pb-24 sm:px-10 lg:px-16">
-        <div className="mx-auto max-w-7xl">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="eyebrow mb-5"
-          >
-            About
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.06 }}
-            className="max-w-3xl text-5xl font-bold tracking-tight text-white sm:text-6xl leading-[1.04]"
-          >
-            Built for teams managing consequential infrastructure
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.12 }}
-            className="mt-6 max-w-xl text-lg leading-8 text-neutral-500"
-          >
-            VIGIL-EARTH is engineered to support continuous monitoring, claims verification and portfolio-level risk decisions on the world's most exposed assets.
-          </motion.p>
+      {/* ── Hero ── */}
+      <section className="relative px-6 pt-20 pb-24 sm:px-10 lg:px-16 overflow-hidden">
+        <AnimatedBg />
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+
+            {/* Left: copy */}
+            <div>
+              <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ...SPRING }} className="eyebrow mb-5">About</motion.p>
+              <motion.h1
+                initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.07, ...SPRING }}
+                className="max-w-xl text-5xl font-semibold text-[#171717] sm:text-6xl"
+                style={{ letterSpacing: '-2.4px', lineHeight: '1.04' }}
+              >
+                Built for teams managing consequential infrastructure
+              </motion.h1>
+              <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.14, ...SPRING }} className="mt-6 max-w-lg text-lg leading-8 text-[#666666]">
+                VIGIL-EARTH is engineered to support continuous monitoring, claims verification and portfolio-level risk decisions on the world's most exposed assets.
+              </motion.p>
+            </div>
+
+            {/* Right: metrics grid */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.75, delay: 0.1, ...SPRING }}
+              className="hidden lg:block"
+            >
+              <div className="grid grid-cols-2 gap-3">
+                {stats.map((s, i) => (
+                  <motion.div
+                    key={s.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 + i * 0.1, duration: 0.6, ...SPRING }}
+                    className="rounded-xl bg-white p-6 shadow-card"
+                  >
+                    <p className="font-mono text-3xl font-medium text-[#171717]" style={{ letterSpacing: '-1px' }}>{s.value}</p>
+                    <p className="mt-2 text-xs font-medium text-[#171717]" style={{ letterSpacing: '-0.2px' }}>{s.label}</p>
+                    <p className="mt-1 text-[10px] text-[#808080] leading-4">{s.sub}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* ── Mission ────────────────────────────────────────── */}
-      <section className="border-t border-white/5 px-6 py-24 sm:px-10 lg:px-16">
+      <section className="border-t border-[#ebebeb] px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-16 lg:grid-cols-2 lg:items-start">
             <div className="space-y-6">
-              <SectionHeading
-                eyebrow="Our mission"
-                title="Truth in physical asset risk"
-                description="We exist to eliminate uncertainty in infrastructure risk assessment through satellite intelligence and geospatial AI."
-              />
-              <p className="text-base leading-7 text-neutral-500">
+              <SectionHeading eyebrow="Our mission" title="Truth in physical asset risk" description="We exist to eliminate uncertainty in infrastructure risk assessment through satellite intelligence and geospatial AI." />
+              <p className="text-base leading-7 text-[#666666]">
                 Traditional risk assessment relies on periodic inspections, historical data and expert judgment. VIGIL-EARTH provides continuous, data-driven insight that sees what the human eye cannot detect — before failure becomes visible.
               </p>
             </div>
-
             <div className="space-y-3">
               {pillars.map((p, i) => (
-                <motion.div
-                  key={p.n}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.09 }}
-                  className="flex gap-5 rounded-lg border border-white/6 bg-[#0d1018] p-6 card-hover"
-                >
-                  <p className="font-mono text-xs text-primary-400/50 mt-0.5 flex-shrink-0">{p.n}</p>
+                <motion.div key={p.n} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.09, ...SPRING }}
+                  className="flex gap-5 rounded-lg bg-white p-6 shadow-card card-hover">
+                  <p className="font-mono text-xs text-[#808080] mt-0.5 flex-shrink-0">{p.n}</p>
                   <div>
-                    <h3 className="text-sm font-semibold text-white">{p.title}</h3>
-                    <p className="mt-1.5 text-sm leading-6 text-neutral-500">{p.body}</p>
+                    <h3 className="text-sm font-semibold text-[#171717]" style={{ letterSpacing: '-0.32px' }}>{p.title}</h3>
+                    <p className="mt-1.5 text-sm leading-6 text-[#666666]">{p.body}</p>
                   </div>
                 </motion.div>
               ))}
@@ -114,56 +102,33 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── Stats ──────────────────────────────────────────── */}
-      <section className="border-t border-white/5 px-6 py-24 sm:px-10 lg:px-16" style={{ background: '#0d1018' }}>
+      <section className="border-t border-[#ebebeb] bg-[#fafafa] px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-7xl">
           <div className="mb-14">
             <p className="eyebrow mb-4">By the numbers</p>
-            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-              Proven at enterprise scale
-            </h2>
+            <h2 className="text-3xl font-semibold text-[#171717] sm:text-4xl" style={{ letterSpacing: '-1.6px', lineHeight: '1.1' }}>Proven at enterprise scale</h2>
           </div>
-
-          <div className="grid gap-px sm:grid-cols-2 xl:grid-cols-4" style={{ background: 'rgba(255,255,255,0.05)' }}>
+          <div className="grid gap-px sm:grid-cols-2 xl:grid-cols-4" style={{ background: '#ebebeb' }}>
             {stats.map((s, i) => (
-              <motion.div
-                key={s.label}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: i * 0.08 }}
-                className="bg-[#0d1018] p-10 card-hover border border-transparent"
-              >
-                <p className="font-mono text-4xl font-medium text-white">{s.value}</p>
-                <p className="mt-3 text-sm font-medium text-neutral-300">{s.label}</p>
-                <p className="mt-1 text-sm text-neutral-600">{s.sub}</p>
+              <motion.div key={s.label} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08, ...SPRING }} className="bg-white p-10 card-hover">
+                <p className="font-mono text-4xl font-medium text-[#171717]">{s.value}</p>
+                <p className="mt-3 text-sm font-semibold text-[#171717]" style={{ letterSpacing: '-0.3px' }}>{s.label}</p>
+                <p className="mt-1 text-sm text-[#808080]">{s.sub}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Technology ─────────────────────────────────────── */}
-      <section className="border-t border-white/5 px-6 py-24 sm:px-10 lg:px-16">
+      <section className="border-t border-[#ebebeb] px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-7xl">
-          <SectionHeading
-            eyebrow="Technology foundation"
-            title="Proven geospatial workflows meet modern AI"
-            description="Our platform combines satellite remote sensing fundamentals with machine learning to detect subtle risk signals in continuous data streams."
-          />
-
+          <SectionHeading eyebrow="Technology foundation" title="Proven geospatial workflows meet modern AI" description="Our platform combines satellite remote sensing fundamentals with machine learning to detect subtle risk signals in continuous data streams." />
           <div className="mt-14 grid gap-4 lg:grid-cols-3">
             {tech.map((t, i) => (
-              <motion.div
-                key={t.title}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: i * 0.1 }}
-                className="rounded-lg border border-white/6 bg-[#0d1018] p-8 card-hover accent-teal"
-              >
-                <h3 className="text-lg font-semibold text-white">{t.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-neutral-500">{t.body}</p>
+              <motion.div key={t.title} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1, ...SPRING }}
+                className="rounded-lg bg-white p-8 shadow-card card-hover">
+                <h3 className="text-lg font-semibold text-[#171717]" style={{ letterSpacing: '-0.5px' }}>{t.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-[#666666]">{t.body}</p>
               </motion.div>
             ))}
           </div>
