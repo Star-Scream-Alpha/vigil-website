@@ -13,14 +13,14 @@ const SPRING = { ease: [0.16, 1, 0.3, 1] as const };
 
 const reports: Report[] = [
   {
-    id: 'sample-q1-2026',
-    title: 'Q1 2026 Platform Performance Report',
-    description: 'Operational metrics, anomaly detection rates and portfolio coverage across monitored infrastructure assets for Q1 2026.',
+    id: 'nashik-grapes-2026',
+    title: 'Nashik Belt Grape Decision Report — VIGIL-Agro',
+    description: 'Satellite-derived NDVI analysis and multi-temporal stress signal assessment for Nashik region vineyards. Crop risk intelligence derived from SAR and optical data.',
     date: 'April 2026',
-    type: 'Quarterly',
+    type: 'Case Study',
     access: 'public',
-    status: 'coming-soon',
-    href: '#',
+    status: 'available',
+    href: '/nashik-grapes-report.html',
   },
 ];
 
@@ -198,10 +198,10 @@ export default function Reports() {
                 </div>
                 <div className="px-5 pb-5 grid grid-cols-2 gap-3">
                   {[
-                    { label: 'Reports published', value: String(reports.length) },
+                    { label: 'Reports generated', value: '126' },
                     { label: 'Report cycle', value: '2026' },
                     { label: 'Coverage', value: 'Global' },
-                    { label: 'Asset types', value: '100+' },
+                    { label: 'Asset types', value: '48+' },
                   ].map((s, i) => (
                     <motion.div
                       key={s.label}
@@ -227,10 +227,10 @@ export default function Reports() {
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
             {[
-              { value: String(reports.length), label: 'Reports published' },
-              { value: String(available.length), label: 'Available now' },
-              { value: String(upcoming.length), label: 'Coming soon' },
-              { value: '2026', label: 'Report cycle start' },
+              { value: '126', label: 'Reports generated' },
+              { value: String(available.length), label: 'Public reports' },
+              { value: '48+', label: 'Asset types covered' },
+              { value: '2026', label: 'Report cycle' },
             ].map((s) => (
               <div key={s.label}>
                 <p className="font-mono text-2xl font-medium text-white">{s.value}</p>
@@ -302,7 +302,7 @@ export default function Reports() {
                 </p>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row">
-                <a href="/contact" className="rounded-full bg-white px-6 py-3 text-sm font-medium text-[#171717] hover:bg-[#ebebeb] transition-colors text-center whitespace-nowrap">Request access</a>
+                <a href="/data-room" className="rounded-full bg-white px-6 py-3 text-sm font-medium text-[#171717] hover:bg-[#ebebeb] transition-colors text-center whitespace-nowrap">Enter data room</a>
                 <a href="mailto:solutions@vigil-earth.com" className="rounded-[6px] px-6 py-3 text-sm font-medium text-[#808080] hover:text-white transition-colors text-center whitespace-nowrap" style={{ boxShadow: 'rgba(255,255,255,0.1) 0px 0px 0px 1px' }}>Email directly</a>
               </div>
             </div>
