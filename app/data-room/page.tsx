@@ -90,7 +90,7 @@ export default function DataRoom() {
               initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ...SPRING }}
               className="mb-6 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-medium"
-              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#808080', letterSpacing: '0.04em' }}
+              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#aaaaaa', letterSpacing: '0.04em' }}
             >
               <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#ef4444', display: 'inline-block', flexShrink: 0 }} />
               RESTRICTED ACCESS
@@ -110,7 +110,7 @@ export default function DataRoom() {
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15, ...SPRING }}
               className="mt-8 max-w-2xl text-lg leading-8"
-              style={{ color: '#666666' }}
+              style={{ color: '#b0b0b0' }}
             >
               While most investors are still waiting on manual surveys and quarterly reports,
               our subscribers are acting on satellite-derived signals updated every six days —
@@ -121,7 +121,7 @@ export default function DataRoom() {
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.22, ...SPRING }}
               className="mt-4 max-w-xl text-base leading-7"
-              style={{ color: '#444444' }}
+              style={{ color: '#999999' }}
             >
               The data room is not a product brochure. It is raw evidence — displacement stacks,
               anomaly logs, incident timelines and model validation records — the kind of material
@@ -143,9 +143,9 @@ export default function DataRoom() {
               </a>
               <a href="mailto:solutions@vigil-earth.com"
                 className="rounded-[6px] px-7 py-3.5 text-sm font-medium transition-colors"
-                style={{ color: '#666666', boxShadow: 'rgba(255,255,255,0.1) 0px 0px 0px 1px' }}
+                style={{ color: '#aaaaaa', boxShadow: 'rgba(255,255,255,0.15) 0px 0px 0px 1px' }}
                 onMouseEnter={(e) => e.currentTarget.style.color = '#ffffff'}
-                onMouseLeave={(e) => e.currentTarget.style.color = '#666666'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#aaaaaa'}
               >
                 Email directly →
               </a>
@@ -162,7 +162,7 @@ export default function DataRoom() {
                 transition={{ delay: 0.4 + i * 0.07, duration: 0.5, ...SPRING }}
               >
                 <p className="font-mono text-3xl font-medium text-white" style={{ letterSpacing: '-1px' }}>{s.value}</p>
-                <p className="mt-1.5 text-sm" style={{ color: '#444444' }}>{s.label}</p>
+                <p className="mt-1.5 text-sm" style={{ color: '#888888' }}>{s.label}</p>
               </motion.div>
             ))}
           </div>
@@ -172,11 +172,11 @@ export default function DataRoom() {
         <section className="px-6 py-24 sm:px-10 lg:px-16">
           <div className="mx-auto max-w-5xl">
             <div className="mb-12">
-              <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.1em]" style={{ color: '#444444' }}>What subscribers see</p>
+              <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.1em]" style={{ color: '#777777' }}>What subscribers see</p>
               <h2 className="text-3xl font-semibold sm:text-4xl" style={{ letterSpacing: '-1.6px', lineHeight: '1.08' }}>
                 Datasets not available anywhere else.
               </h2>
-              <p className="mt-4 max-w-xl text-base leading-7" style={{ color: '#555555' }}>
+              <p className="mt-4 max-w-xl text-base leading-7" style={{ color: '#999999' }}>
                 These are not summaries. These are the raw signals — the same data our platform
                 uses to flag critical risk before it becomes visible on the ground.
               </p>
@@ -191,17 +191,17 @@ export default function DataRoom() {
                   className="flex items-center gap-4 px-6 py-5"
                   style={{ background: '#0a0a0a' }}
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" strokeLinecap="round">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1.5" strokeLinecap="round">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                   </svg>
-                  <span className="text-sm" style={{ color: '#404040' }}>{s.label}</span>
-                  <span className="ml-auto font-mono text-[10px]" style={{ color: '#2a2a2a' }}>LOCKED</span>
+                  <span className="text-sm" style={{ color: '#c0c0c0' }}>{s.label}</span>
+                  <span className="ml-auto font-mono text-[9px] rounded px-1.5 py-0.5" style={{ color: '#884444', background: 'rgba(180,50,50,0.12)', border: '1px solid rgba(180,50,50,0.2)' }}>LOCKED</span>
                 </motion.div>
               ))}
             </div>
 
-            <p className="mt-6 text-sm" style={{ color: '#333333' }}>
+            <p className="mt-6 text-sm" style={{ color: '#777777' }}>
               Analyst and Institutional subscribers have full access to all of the above, updated continuously.
             </p>
           </div>
@@ -211,11 +211,11 @@ export default function DataRoom() {
         <section className="px-6 pb-28 sm:px-10 lg:px-16" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
           <div className="mx-auto max-w-5xl pt-24">
             <div className="mb-14">
-              <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.1em]" style={{ color: '#444444' }}>Access tiers</p>
+              <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.1em]" style={{ color: '#777777' }}>Access tiers</p>
               <h2 className="text-3xl font-semibold sm:text-4xl" style={{ letterSpacing: '-1.6px', lineHeight: '1.08' }}>
                 You decide how much you see.
               </h2>
-              <p className="mt-4 max-w-xl text-base leading-7" style={{ color: '#555555' }}>
+              <p className="mt-4 max-w-xl text-base leading-7" style={{ color: '#999999' }}>
                 The gap between what free users know and what Institutional subscribers know
                 is the gap between reacting and being ahead.
               </p>
@@ -239,14 +239,14 @@ export default function DataRoom() {
                       Most complete
                     </div>
                   )}
-                  <p className="text-xs font-medium uppercase tracking-widest" style={{ color: '#444444' }}>{tier.name}</p>
+                  <p className="text-xs font-medium uppercase tracking-widest" style={{ color: '#777777' }}>{tier.name}</p>
                   <p className="mt-2 text-2xl font-semibold text-white" style={{ letterSpacing: '-0.8px' }}>{tier.price}</p>
-                  <p className="mt-2 text-sm leading-6" style={{ color: '#555555' }}>{tier.desc}</p>
+                  <p className="mt-2 text-sm leading-6" style={{ color: '#999999' }}>{tier.desc}</p>
                   <ul className="mt-6 flex-1 space-y-3">
                     {tier.items.map((item) => (
-                      <li key={item} className="flex items-start gap-2.5 text-sm" style={{ color: tier.current ? '#404040' : '#888888' }}>
+                      <li key={item} className="flex items-start gap-2.5 text-sm" style={{ color: tier.current ? '#777777' : '#b0b0b0' }}>
                         <svg width="13" height="13" viewBox="0 0 13 13" fill="none" className="mt-0.5 flex-shrink-0"
-                          stroke={tier.current ? '#333333' : '#555555'} strokeWidth="1.4" strokeLinecap="round">
+                          stroke={tier.current ? '#555555' : '#888888'} strokeWidth="1.4" strokeLinecap="round">
                           <polyline points="2 7 5 10 11 3" />
                         </svg>
                         {item}
@@ -255,7 +255,7 @@ export default function DataRoom() {
                   </ul>
                   <div className="mt-8">
                     {tier.current ? (
-                      <div className="rounded-[6px] px-5 py-3 text-sm font-medium text-center" style={{ color: '#333333', border: '1px solid rgba(255,255,255,0.07)' }}>
+                      <div className="rounded-[6px] px-5 py-3 text-sm font-medium text-center" style={{ color: '#555555', border: '1px solid rgba(255,255,255,0.1)' }}>
                         {tier.cta}
                       </div>
                     ) : (
@@ -282,7 +282,7 @@ export default function DataRoom() {
               initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.5, ...SPRING }}
               className="mb-6 font-mono text-[11px] uppercase tracking-[0.1em]"
-              style={{ color: '#333333' }}
+              style={{ color: '#666666' }}
             >
               The data is updating right now
             </motion.p>
@@ -299,7 +299,7 @@ export default function DataRoom() {
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.55, delay: 0.15, ...SPRING }}
               className="mt-6 text-base leading-7"
-              style={{ color: '#555555' }}
+              style={{ color: '#999999' }}
             >
               Infrastructure risk doesn't wait for you to get around to reviewing it.
               Neither does the data.
@@ -319,9 +319,9 @@ export default function DataRoom() {
               </a>
               <a href="/reports"
                 className="text-sm transition-colors"
-                style={{ color: '#333333' }}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#888888'}
-                onMouseLeave={(e) => e.currentTarget.style.color = '#333333'}
+                style={{ color: '#666666' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#aaaaaa'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#666666'}
               >
                 ← Back to public reports
               </a>
