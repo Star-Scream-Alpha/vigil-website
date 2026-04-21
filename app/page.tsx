@@ -138,18 +138,20 @@ export default function Home() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45 }}
-                className="mb-7 flex items-center gap-2"
+                className="mb-7"
               >
-                <span className="live-dot" />
-                <span className="eyebrow">Satellite Intelligence Platform</span>
+                <span className="badge-status">
+                  <span className="live-dot" style={{ width: 5, height: 5 }} />
+                  <span className="eyebrow" style={{ color: '#0060d6' }}>Satellite Intelligence Platform</span>
+                </span>
               </motion.div>
 
               <motion.h1
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, delay: 0.05 }}
-                className="text-5xl font-semibold text-[#171717] sm:text-6xl lg:text-[4.25rem]"
-                style={{ letterSpacing: '-2.4px', lineHeight: '1.04' }}
+                className="text-[3rem] font-bold text-[#171717] sm:text-[4.25rem] lg:text-[5.25rem]"
+                style={{ letterSpacing: '-3.5px', lineHeight: '0.95' }}
               >
                 See the ground{' '}
                 <span className="text-[#0072f5]">shift</span>{' '}
@@ -275,14 +277,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Metrics strip ──────────────────────────────────── */}
-      <section className="border-y border-[#ebebeb] bg-[#fafafa] px-6 py-10 sm:px-10 lg:px-16">
+      {/* ── Metrics strip — dark data anchor ──────────────── */}
+      <section className="px-6 py-12 sm:px-10 lg:px-16 grid-bg" style={{ background: '#0b0b0b' }}>
         <div className="mx-auto max-w-7xl">
-          <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-10 lg:grid-cols-4">
             {metrics.map((m, i) => (
               <motion.div key={m.label} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.07 }}>
-                <p className="font-mono text-2xl font-medium text-[#171717]">{m.value}</p>
-                <p className="mt-1 text-sm text-[#808080]">{m.label}</p>
+                <p className="font-mono text-3xl font-medium text-white">{m.value}</p>
+                <p className="mt-1.5 text-sm text-[#4d4d4d]">{m.label}</p>
               </motion.div>
             ))}
           </div>
@@ -290,7 +292,7 @@ export default function Home() {
       </section>
 
       {/* ── How it works ───────────────────────────────────── */}
-      <section className="px-6 py-24 sm:px-10 lg:px-16">
+      <section className="px-6 py-24 sm:px-10 lg:px-16 section-tint">
         <div className="mx-auto max-w-7xl">
           <div className="mb-14">
             <p className="eyebrow mb-4">How it works</p>
@@ -325,7 +327,7 @@ export default function Home() {
       </section>
 
       {/* ── Who it's for ───────────────────────────────────── */}
-      <section className="border-t border-[#ebebeb] bg-[#fafafa] px-6 py-24 sm:px-10 lg:px-16">
+      <section className="border-t border-[#ebebeb] bg-white px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-12 lg:grid-cols-[260px_1fr] lg:gap-16">
             <div>
@@ -363,7 +365,7 @@ export default function Home() {
       </section>
 
       {/* ── Use cases ──────────────────────────────────────── */}
-      <section className="border-t border-[#ebebeb] px-6 py-24 sm:px-10 lg:px-16">
+      <section className="border-t border-[#ebebeb] px-6 py-24 sm:px-10 lg:px-16 section-tint">
         <div className="mx-auto max-w-7xl">
           <div className="mb-14 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>

@@ -23,12 +23,17 @@ export default function Contact() {
 
             {/* Left: copy */}
             <div>
-              <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ...SPRING }} className="eyebrow mb-5">Contact</motion.p>
+              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ...SPRING }} className="mb-5">
+                <span className="badge-status">
+                  <span className="live-dot" style={{ width: 5, height: 5 }} />
+                  <span className="eyebrow" style={{ color: '#0060d6' }}>Contact</span>
+                </span>
+              </motion.div>
               <motion.h1
                 initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.07, ...SPRING }}
-                className="max-w-xl text-5xl font-semibold text-[#171717] sm:text-6xl"
-                style={{ letterSpacing: '-2.4px', lineHeight: '1.04' }}
+                className="max-w-xl text-[2.75rem] font-bold text-[#171717] sm:text-[4rem] lg:text-[5rem]"
+                style={{ letterSpacing: '-3.2px', lineHeight: '0.96' }}
               >
                 Partner with VIGIL-EARTH
               </motion.h1>

@@ -63,11 +63,30 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ── Card hover (shadow intensification + lift) ───────── */
-.card-hover { transition: box-shadow 0.2s ease, transform 0.2s ease; }
+.card-hover { transition: box-shadow 0.2s ease, transform 0.22s ease; }
 
 .card-hover:hover {
-  box-shadow: rgba(0,0,0,0.12) 0px 0px 0px 1px, rgba(0,0,0,0.08) 0px 4px 12px, #fafafa 0px 0px 0px 1px !important;
-  transform: translateY(-2px);
+  box-shadow: rgba(0,0,0,0.09) 0px 0px 0px 1px, rgba(0,0,0,0.13) 0px 10px 28px -6px, rgba(0,0,0,0.05) 0px 2px 8px !important;
+  transform: translateY(-3px);
+}
+
+/* ── Status badge ─────────────────────────────────────── */
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  background: rgba(0,114,245,0.07);
+  border: 1px solid rgba(0,114,245,0.16);
+}
+
+/* ── Section tint (technical sections) ───────────────── */
+.section-tint { background: #f5f7fc; }
+
+/* ── Dark section (data anchor) ──────────────────────── */
+.section-dark {
+  background: #0a0a0a;
 }
 
 /* ── Grid background for dark data panels ────────────── */

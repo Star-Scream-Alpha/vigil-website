@@ -57,12 +57,17 @@ export default function Solutions() {
 
             {/* Left: copy */}
             <div>
-              <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ...SPRING }} className="eyebrow mb-5">Solutions</motion.p>
+              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ...SPRING }} className="mb-5">
+                <span className="badge-status">
+                  <span className="live-dot" style={{ width: 5, height: 5 }} />
+                  <span className="eyebrow" style={{ color: '#0060d6' }}>Solutions</span>
+                </span>
+              </motion.div>
               <motion.h1
                 initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.07, ...SPRING }}
-                className="max-w-xl text-5xl font-semibold text-[#171717] sm:text-6xl"
-                style={{ letterSpacing: '-2.4px', lineHeight: '1.04' }}
+                className="max-w-xl text-[2.75rem] font-bold text-[#171717] sm:text-[4rem] lg:text-[5rem]"
+                style={{ letterSpacing: '-3.2px', lineHeight: '0.96' }}
               >
                 Mission-critical use cases for the world's most exposed assets
               </motion.h1>
@@ -186,7 +191,7 @@ export default function Solutions() {
         </div>
       </section>
 
-      <section className="border-t border-[#ebebeb] px-6 py-24 sm:px-10 lg:px-16">
+      <section className="border-t border-[#ebebeb] px-6 py-24 sm:px-10 lg:px-16 section-tint">
         <div className="mx-auto max-w-7xl">
           <SectionHeading eyebrow="What VIGIL-EARTH sees" title="The risk signals beneath the surface" description="We map hidden instability around critical assets using proven satellite and geospatial data techniques — not opinion." />
           <div className="mt-14 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -202,7 +207,7 @@ export default function Solutions() {
         </div>
       </section>
 
-      <section className="border-t border-[#ebebeb] bg-[#fafafa] px-6 py-24 sm:px-10 lg:px-16">
+      <section className="border-t border-[#ebebeb] bg-white px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-7xl">
           <SectionHeading eyebrow="Use cases" title="Where VIGIL-EARTH is mission-critical" description="Deployed across industries where infrastructure failure carries the highest consequences." />
           <div className="mt-14 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
