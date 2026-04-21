@@ -123,6 +123,20 @@ const useCases = [
   },
 ];
 
+const tickerItems = [
+  'SAR-12 · DAM-02 · ELEVATED · +2.8 mm · Zurich, CH',
+  'InSAR-6 · BRIDGE-07 · STABLE · +0.2 mm · Lyon, FR',
+  'SAR-08 · PIPE-14 · CRITICAL · +5.1 mm · Rotterdam, NL',
+  'InSAR-3 · MINE-03 · ELEVATED · +3.4 mm · Johannesburg, ZA',
+  'SAR-15 · DAM-09 · STABLE · +0.1 mm · Nairobi, KE',
+  'InSAR-7 · BRIDGE-22 · ELEVATED · +1.9 mm · Mumbai, IN',
+  'SAR-04 · PIPE-08 · STABLE · +0.3 mm · Calgary, CA',
+  'InSAR-9 · MINE-11 · CRITICAL · +6.2 mm · Santiago, CL',
+  'SAR-02 · ROAD-05 · STABLE · +0.4 mm · Berlin, DE',
+  'InSAR-5 · DAM-17 · ELEVATED · +2.1 mm · Chennai, IN',
+];
+
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-white text-[#171717]">
@@ -197,31 +211,18 @@ export default function Home() {
               className="relative overflow-hidden rounded-xl"
               style={{ height: 460, boxShadow: 'rgba(0,0,0,0.08) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 8px 24px' }}
             >
-              {/* Dam image background */}
               <img src="/dam-image.png" alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover" />
-              {/* Dark overlay — keeps UI legible over the photo */}
               <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.42)' }} />
-              {/* Terrain coordinate grid */}
               <div className="absolute inset-0 grid-bg pointer-events-none" />
-
-              {/* ── Displacement heat zones — at base of terrain ── */}
 
               {/* Amber / elevated — outer halo */}
               <div className="absolute" style={{ width: 360, height: 240, left: '4%', top: '44%', background: 'radial-gradient(ellipse at center, rgba(195,105,30,0.22) 0%, transparent 65%)', filter: 'blur(28px)' }} />
-              {/* Amber / elevated — glowing core */}
               <div className="absolute" style={{ width: 230, height: 150, left: '12%', top: '50%', background: 'radial-gradient(ellipse at center, rgba(205,115,35,0.72) 0%, rgba(185,95,30,0.22) 48%, transparent 70%)', filter: 'blur(9px)', transform: 'rotate(-12deg)', animation: 'blob-pulse 4s ease-in-out infinite' }} />
-
-              {/* Red / critical — outer halo */}
               <div className="absolute" style={{ width: 180, height: 140, left: '38%', top: '50%', background: 'radial-gradient(ellipse at center, rgba(175,52,25,0.28) 0%, transparent 65%)', filter: 'blur(24px)' }} />
-              {/* Red / critical — glowing core */}
               <div className="absolute" style={{ width: 96, height: 70, left: '44%', top: '56%', background: 'radial-gradient(ellipse at center, rgba(195,58,28,0.82) 0%, rgba(150,48,22,0.28) 50%, transparent 70%)', filter: 'blur(5px)', animation: 'blob-pulse 3.2s ease-in-out 0.8s infinite' }} />
-
-              {/* Green / stable — outer halo */}
               <div className="absolute" style={{ width: 260, height: 170, left: '56%', top: '46%', background: 'radial-gradient(ellipse at center, rgba(78,138,50,0.2) 0%, transparent 65%)', filter: 'blur(26px)' }} />
-              {/* Green / stable — glowing core */}
               <div className="absolute" style={{ width: 170, height: 115, left: '62%', top: '52%', background: 'radial-gradient(ellipse at center, rgba(90,152,55,0.52) 0%, rgba(75,125,45,0.14) 50%, transparent 70%)', filter: 'blur(9px)', animation: 'blob-pulse 5s ease-in-out 1.6s infinite' }} />
 
-              {/* Crosshair — on critical zone */}
               <div className="absolute" style={{ left: 'calc(44% + 13px)', top: 'calc(56% + 9px)' }}>
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
                   <circle cx="14" cy="14" r="5" stroke="rgba(195,58,28,0.75)" strokeWidth="0.8" />
@@ -232,7 +233,6 @@ export default function Home() {
                 </svg>
               </div>
 
-              {/* Header bar */}
               <div className="absolute inset-x-0 top-0 flex items-center justify-between px-4 py-2.5 border-b border-white/5" style={{ background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(8px)' }}>
                 <div className="flex items-center gap-2">
                   <span className="live-dot" style={{ width: 5, height: 5, background: '#00a63e' }} />
@@ -241,13 +241,8 @@ export default function Home() {
                 <span style={{ fontFamily: 'monospace', fontSize: 9, color: 'rgba(255,255,255,0.3)' }}>2026-04-19 · 14:23 UTC</span>
               </div>
 
-              {/* Legend */}
               <div className="absolute right-3 top-10 flex flex-col gap-1.5 rounded p-2" style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }}>
-                {[
-                  { color: '#8c3019', label: 'Critical' },
-                  { color: '#b45f23', label: 'Elevated' },
-                  { color: '#507837', label: 'Stable' },
-                ].map((item) => (
+                {[{ color: '#8c3019', label: 'Critical' }, { color: '#b45f23', label: 'Elevated' }, { color: '#507837', label: 'Stable' }].map((item) => (
                   <div key={item.label} className="flex items-center gap-1.5">
                     <div style={{ width: 7, height: 7, borderRadius: '50%', background: item.color, opacity: 0.9 }} />
                     <span style={{ fontFamily: 'monospace', fontSize: 8, color: 'rgba(255,255,255,0.4)' }}>{item.label}</span>
@@ -257,7 +252,6 @@ export default function Home() {
 
               <div style={{ position: 'absolute', bottom: 76, left: 12, fontFamily: 'monospace', fontSize: 8, color: 'rgba(255,255,255,0.18)' }}>47.23°N  8.45°E</div>
 
-              {/* Data strip */}
               <div className="absolute inset-x-0 bottom-0 border-t border-white/5 px-4 py-3" style={{ background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)' }}>
                 <div className="flex items-end justify-between">
                   <div>
@@ -291,6 +285,21 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Live telemetry ticker ──────────────────────────── */}
+      <div style={{ background: '#030303', borderTop: '1px solid #151515', borderBottom: '1px solid #151515', overflow: 'hidden', padding: '9px 0', position: 'relative' }}>
+        {/* Left fade */}
+        <div className="absolute inset-y-0 left-0 w-16 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #030303, transparent)' }} />
+        {/* Right fade */}
+        <div className="absolute inset-y-0 right-0 w-16 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #030303, transparent)' }} />
+        <div style={{ display: 'flex', animation: 'ticker-scroll 40s linear infinite', width: 'max-content' }}>
+          {[...tickerItems, ...tickerItems].map((item, i) => (
+            <span key={i} style={{ fontFamily: 'monospace', fontSize: 10, color: '#3a3a3a', letterSpacing: '0.07em', whiteSpace: 'nowrap', padding: '0 36px' }}>
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* ── How it works ───────────────────────────────────── */}
       <section className="px-6 py-24 sm:px-10 lg:px-16 section-tint">
         <div className="mx-auto max-w-7xl">
@@ -300,6 +309,7 @@ export default function Home() {
               From orbit to operational decision
             </h2>
           </div>
+
           <div className="grid gap-px lg:grid-cols-3" style={{ background: '#ebebeb' }}>
             {steps.map((item, i) => (
               <motion.div
@@ -349,7 +359,7 @@ export default function Home() {
                 >
                   <h3 className="text-[15px] font-semibold text-[#171717]" style={{ letterSpacing: '-0.4px' }}>{a.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-[#666666]">{a.description}</p>
-                  <ul className="mt-5 space-y-2">
+                  <ul className="mt-4 space-y-2">
                     {a.signals.map((s) => (
                       <li key={s} className="flex items-center gap-2">
                         <div style={{ width: 4, height: 4, borderRadius: '50%', background: '#171717', flexShrink: 0 }} />
@@ -365,8 +375,14 @@ export default function Home() {
       </section>
 
       {/* ── Use cases ──────────────────────────────────────── */}
-      <section className="border-t border-[#ebebeb] px-6 py-24 sm:px-10 lg:px-16 section-tint">
-        <div className="mx-auto max-w-7xl">
+      <section className="border-t border-[#ebebeb] px-6 py-24 sm:px-10 lg:px-16 section-tint" style={{ position: 'relative', overflow: 'hidden' }}>
+
+        {/* Ambient glow orbs — always drifting */}
+        <div className="pointer-events-none absolute" style={{ width: 700, height: 480, top: '0%', left: '-10%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.18) 0%, transparent 60%)', filter: 'blur(30px)', animation: 'drift1 22s ease-in-out infinite' }} />
+        <div className="pointer-events-none absolute" style={{ width: 580, height: 400, bottom: '0%', right: '-8%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.14) 0%, transparent 60%)', filter: 'blur(30px)', animation: 'drift2 28s ease-in-out infinite' }} />
+        <div className="pointer-events-none absolute" style={{ width: 420, height: 320, top: '35%', left: '40%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.1) 0%, transparent 60%)', filter: 'blur(25px)', animation: 'drift3 18s ease-in-out infinite' }} />
+
+        <div className="relative mx-auto max-w-7xl">
           <div className="mb-14 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="eyebrow mb-4">Use cases</p>
