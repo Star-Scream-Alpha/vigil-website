@@ -76,6 +76,33 @@ export default function Platform() {
                 <a href="/contact" className="rounded-full bg-[#171717] px-6 py-3 text-sm font-medium text-white hover:bg-[#333333] transition-colors">Request demo</a>
                 <a href="#how-it-works" className="rounded-[6px] px-6 py-3 text-sm font-medium text-[#171717] hover:bg-[#fafafa] transition-colors" style={{ boxShadow: 'rgb(235,235,235) 0px 0px 0px 1px' }}>See how it works</a>
               </motion.div>
+
+              {/* Mobile visual strip */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.32, ...SPRING }}
+                className="mt-8 lg:hidden rounded-xl overflow-hidden shadow-card"
+              >
+                <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#ebebeb]">
+                  <p className="eyebrow">Pipeline metrics</p>
+                  <div className="flex items-center gap-1.5">
+                    <span className="live-dot" style={{ width: 5, height: 5 }} />
+                    <span style={{ fontFamily: 'monospace', fontSize: 9, color: '#00a63e' }}>LIVE</span>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 divide-x divide-[#ebebeb]">
+                  {[
+                    { value: '±2mm', label: 'Precision' },
+                    { value: '6-day', label: 'Revisit' },
+                    { value: '>98%', label: 'Accuracy' },
+                  ].map((s) => (
+                    <div key={s.label} className="py-5 text-center">
+                      <p className="font-mono text-base font-medium text-[#171717]">{s.value}</p>
+                      <p className="text-[10px] text-[#808080] mt-1">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
             </div>
 
             {/* Right: pipeline status panel */}
@@ -124,10 +151,10 @@ export default function Platform() {
           <SectionHeading eyebrow="How it works" title="A disciplined sequence from satellite to decision" description="Every signal is processed through proven geospatial workflows before it reaches your risk team." />
           <div className="mt-14 grid gap-px lg:grid-cols-5" style={{ background: '#ebebeb' }}>
             {pipeline.map((item, i) => (
-              <motion.div key={item.n} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08, ...SPRING }} className="bg-white p-7 card-hover">
+              <motion.div key={item.n} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08, ...SPRING }} className="bg-white p-7 card-hover">
                 <p className="font-mono text-xs text-[#808080] mb-4">{item.n}</p>
-                <h3 className="text-sm font-semibold text-[#171717] leading-snug" style={{ letterSpacing: '-0.3px' }}>{item.title}</h3>
-                <p className="mt-3 text-xs leading-5 text-[#666666]">{item.detail}</p>
+                <h3 className="text-[15px] font-semibold text-[#171717] leading-snug" style={{ letterSpacing: '-0.4px' }}>{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-[#666666]">{item.detail}</p>
               </motion.div>
             ))}
           </div>

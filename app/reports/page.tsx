@@ -126,6 +126,33 @@ export default function Reports() {
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.22, ...SPRING }} className="mt-8 flex flex-wrap gap-3">
                 <a href="/contact" className="rounded-full bg-[#171717] px-6 py-3 text-sm font-medium text-white hover:bg-[#333333] transition-colors">Request investor access</a>
               </motion.div>
+
+              {/* Mobile visual strip */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.32, ...SPRING }}
+                className="mt-8 lg:hidden rounded-xl overflow-hidden shadow-card"
+              >
+                <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#ebebeb]">
+                  <p className="eyebrow">Platform metrics</p>
+                  <div className="flex items-center gap-1.5">
+                    <span className="live-dot" style={{ width: 5, height: 5 }} />
+                    <span style={{ fontFamily: 'monospace', fontSize: 9, color: '#00a63e' }}>LIVE</span>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 divide-x divide-[#ebebeb]">
+                  {[
+                    { value: '98%', label: 'Detection' },
+                    { value: '94%', label: 'Confidence' },
+                    { value: '87%', label: 'Coverage' },
+                  ].map((s) => (
+                    <div key={s.label} className="py-5 text-center">
+                      <p className="font-mono text-base font-medium text-[#171717]">{s.value}</p>
+                      <p className="text-[10px] text-[#808080] mt-1">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
             </div>
 
             {/* Right: performance dashboard */}
