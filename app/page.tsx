@@ -33,16 +33,19 @@ const audiences = [
     title: 'Insurers & Underwriters',
     description: 'Continuous portfolio risk visibility for underwriting decisions and pre-event claims intelligence.',
     signals: ['Displacement history', 'Risk score trends', 'Forensic evidence package'],
+    bars: [55, 80, 45, 70, 90, 38, 65],
   },
   {
     title: 'Infrastructure Operators',
     description: 'Early warning intelligence for dams, bridges, pipelines and mine sites before physical failure.',
     signals: ['Real-time alert feed', 'Asset health scores', 'Inspection prioritization'],
+    bars: [72, 40, 85, 55, 68, 92, 50],
   },
   {
     title: 'Governments & Public Sector',
     description: 'National-scale infrastructure monitoring for disaster prevention and public safety mandates.',
     signals: ['Portfolio dashboard', 'Policy-grade reporting', 'Cross-agency data access'],
+    bars: [48, 75, 60, 88, 42, 70, 82],
   },
 ];
 
@@ -123,6 +126,32 @@ const useCases = [
   },
 ];
 
+const tickerItems = [
+  'SAR-12 · DAM-02 · ELEVATED · +2.8 mm · Zurich, CH',
+  'InSAR-6 · BRIDGE-07 · STABLE · +0.2 mm · Lyon, FR',
+  'SAR-08 · PIPE-14 · CRITICAL · +5.1 mm · Rotterdam, NL',
+  'InSAR-3 · MINE-03 · ELEVATED · +3.4 mm · Johannesburg, ZA',
+  'SAR-15 · DAM-09 · STABLE · +0.1 mm · Nairobi, KE',
+  'InSAR-7 · BRIDGE-22 · ELEVATED · +1.9 mm · Mumbai, IN',
+  'SAR-04 · PIPE-08 · STABLE · +0.3 mm · Calgary, CA',
+  'InSAR-9 · MINE-11 · CRITICAL · +6.2 mm · Santiago, CL',
+  'SAR-02 · ROAD-05 · STABLE · +0.4 mm · Berlin, DE',
+  'InSAR-5 · DAM-17 · ELEVATED · +2.1 mm · Chennai, IN',
+];
+
+const feedItems: { asset: string; type: string; val: string; status: 'critical' | 'elevated' | 'stable'; loc: string; time: string }[] = [
+  { asset: 'DAM-02', type: 'SAR', val: '+2.8 mm', status: 'elevated', loc: 'Zurich, CH', time: '14:23' },
+  { asset: 'PIPE-14', type: 'InSAR', val: '+5.1 mm', status: 'critical', loc: 'Rotterdam, NL', time: '14:21' },
+  { asset: 'BRIDGE-07', type: 'SAR', val: '+0.2 mm', status: 'stable', loc: 'Lyon, FR', time: '14:19' },
+  { asset: 'MINE-03', type: 'InSAR', val: '+3.4 mm', status: 'elevated', loc: 'Johannesburg, ZA', time: '14:17' },
+  { asset: 'DAM-09', type: 'SAR', val: '+0.1 mm', status: 'stable', loc: 'Nairobi, KE', time: '14:15' },
+  { asset: 'BRIDGE-22', type: 'SAR', val: '+1.9 mm', status: 'elevated', loc: 'Mumbai, IN', time: '14:12' },
+  { asset: 'PIPE-08', type: 'InSAR', val: '+0.3 mm', status: 'stable', loc: 'Calgary, CA', time: '14:09' },
+  { asset: 'MINE-11', type: 'SAR', val: '+6.2 mm', status: 'critical', loc: 'Santiago, CL', time: '14:07' },
+];
+
+const statusColors = { critical: '#a84030', elevated: '#b45f23', stable: '#507837' } as const;
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-white text-[#171717]">
@@ -197,31 +226,18 @@ export default function Home() {
               className="relative overflow-hidden rounded-xl"
               style={{ height: 460, boxShadow: 'rgba(0,0,0,0.08) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 8px 24px' }}
             >
-              {/* Dam image background */}
               <img src="/dam-image.png" alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover" />
-              {/* Dark overlay — keeps UI legible over the photo */}
               <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.42)' }} />
-              {/* Terrain coordinate grid */}
               <div className="absolute inset-0 grid-bg pointer-events-none" />
-
-              {/* ── Displacement heat zones — at base of terrain ── */}
 
               {/* Amber / elevated — outer halo */}
               <div className="absolute" style={{ width: 360, height: 240, left: '4%', top: '44%', background: 'radial-gradient(ellipse at center, rgba(195,105,30,0.22) 0%, transparent 65%)', filter: 'blur(28px)' }} />
-              {/* Amber / elevated — glowing core */}
               <div className="absolute" style={{ width: 230, height: 150, left: '12%', top: '50%', background: 'radial-gradient(ellipse at center, rgba(205,115,35,0.72) 0%, rgba(185,95,30,0.22) 48%, transparent 70%)', filter: 'blur(9px)', transform: 'rotate(-12deg)', animation: 'blob-pulse 4s ease-in-out infinite' }} />
-
-              {/* Red / critical — outer halo */}
               <div className="absolute" style={{ width: 180, height: 140, left: '38%', top: '50%', background: 'radial-gradient(ellipse at center, rgba(175,52,25,0.28) 0%, transparent 65%)', filter: 'blur(24px)' }} />
-              {/* Red / critical — glowing core */}
               <div className="absolute" style={{ width: 96, height: 70, left: '44%', top: '56%', background: 'radial-gradient(ellipse at center, rgba(195,58,28,0.82) 0%, rgba(150,48,22,0.28) 50%, transparent 70%)', filter: 'blur(5px)', animation: 'blob-pulse 3.2s ease-in-out 0.8s infinite' }} />
-
-              {/* Green / stable — outer halo */}
               <div className="absolute" style={{ width: 260, height: 170, left: '56%', top: '46%', background: 'radial-gradient(ellipse at center, rgba(78,138,50,0.2) 0%, transparent 65%)', filter: 'blur(26px)' }} />
-              {/* Green / stable — glowing core */}
               <div className="absolute" style={{ width: 170, height: 115, left: '62%', top: '52%', background: 'radial-gradient(ellipse at center, rgba(90,152,55,0.52) 0%, rgba(75,125,45,0.14) 50%, transparent 70%)', filter: 'blur(9px)', animation: 'blob-pulse 5s ease-in-out 1.6s infinite' }} />
 
-              {/* Crosshair — on critical zone */}
               <div className="absolute" style={{ left: 'calc(44% + 13px)', top: 'calc(56% + 9px)' }}>
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
                   <circle cx="14" cy="14" r="5" stroke="rgba(195,58,28,0.75)" strokeWidth="0.8" />
@@ -232,7 +248,6 @@ export default function Home() {
                 </svg>
               </div>
 
-              {/* Header bar */}
               <div className="absolute inset-x-0 top-0 flex items-center justify-between px-4 py-2.5 border-b border-white/5" style={{ background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(8px)' }}>
                 <div className="flex items-center gap-2">
                   <span className="live-dot" style={{ width: 5, height: 5, background: '#00a63e' }} />
@@ -241,13 +256,8 @@ export default function Home() {
                 <span style={{ fontFamily: 'monospace', fontSize: 9, color: 'rgba(255,255,255,0.3)' }}>2026-04-19 · 14:23 UTC</span>
               </div>
 
-              {/* Legend */}
               <div className="absolute right-3 top-10 flex flex-col gap-1.5 rounded p-2" style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }}>
-                {[
-                  { color: '#8c3019', label: 'Critical' },
-                  { color: '#b45f23', label: 'Elevated' },
-                  { color: '#507837', label: 'Stable' },
-                ].map((item) => (
+                {[{ color: '#8c3019', label: 'Critical' }, { color: '#b45f23', label: 'Elevated' }, { color: '#507837', label: 'Stable' }].map((item) => (
                   <div key={item.label} className="flex items-center gap-1.5">
                     <div style={{ width: 7, height: 7, borderRadius: '50%', background: item.color, opacity: 0.9 }} />
                     <span style={{ fontFamily: 'monospace', fontSize: 8, color: 'rgba(255,255,255,0.4)' }}>{item.label}</span>
@@ -257,7 +267,6 @@ export default function Home() {
 
               <div style={{ position: 'absolute', bottom: 76, left: 12, fontFamily: 'monospace', fontSize: 8, color: 'rgba(255,255,255,0.18)' }}>47.23°N  8.45°E</div>
 
-              {/* Data strip */}
               <div className="absolute inset-x-0 bottom-0 border-t border-white/5 px-4 py-3" style={{ background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)' }}>
                 <div className="flex items-end justify-between">
                   <div>
@@ -291,6 +300,21 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Live telemetry ticker ──────────────────────────── */}
+      <div style={{ background: '#030303', borderTop: '1px solid #151515', borderBottom: '1px solid #151515', overflow: 'hidden', padding: '9px 0', position: 'relative' }}>
+        {/* Left fade */}
+        <div className="absolute inset-y-0 left-0 w-16 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #030303, transparent)' }} />
+        {/* Right fade */}
+        <div className="absolute inset-y-0 right-0 w-16 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #030303, transparent)' }} />
+        <div style={{ display: 'flex', animation: 'ticker-scroll 40s linear infinite', width: 'max-content' }}>
+          {[...tickerItems, ...tickerItems].map((item, i) => (
+            <span key={i} style={{ fontFamily: 'monospace', fontSize: 10, color: '#3a3a3a', letterSpacing: '0.07em', whiteSpace: 'nowrap', padding: '0 36px' }}>
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* ── How it works ───────────────────────────────────── */}
       <section className="px-6 py-24 sm:px-10 lg:px-16 section-tint">
         <div className="mx-auto max-w-7xl">
@@ -300,28 +324,87 @@ export default function Home() {
               From orbit to operational decision
             </h2>
           </div>
-          <div className="grid gap-px lg:grid-cols-3" style={{ background: '#ebebeb' }}>
-            {steps.map((item, i) => (
-              <motion.div
-                key={item.n}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: i * 0.1 }}
-                className="relative bg-white p-8 card-hover"
-              >
-                <p className="font-mono text-xs text-[#808080] mb-5">{item.n}</p>
-                <h3 className="text-lg font-semibold text-[#171717]" style={{ letterSpacing: '-0.5px' }}>{item.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-[#666666]">{item.body}</p>
-                {i < 2 && (
-                  <div className="absolute right-0 top-1/2 hidden -translate-y-1/2 translate-x-1/2 lg:flex items-center justify-center w-5 h-5 rounded-full bg-white z-10" style={{ boxShadow: 'rgba(0,0,0,0.08) 0px 0px 0px 1px' }}>
-                    <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
-                      <path d="M1.5 4.5h6M5.5 2.5l2 2-2 2" stroke="rgba(0,0,0,0.3)" strokeWidth="1" strokeLinecap="round" />
-                    </svg>
-                  </div>
-                )}
-              </motion.div>
-            ))}
+
+          <div className="grid gap-8 lg:grid-cols-[1fr_320px] lg:items-start">
+
+            {/* Left: 3 step cards */}
+            <div className="grid gap-px sm:grid-cols-3 lg:grid-cols-3" style={{ background: '#ebebeb' }}>
+              {steps.map((item, i) => (
+                <motion.div
+                  key={item.n}
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.45, delay: i * 0.1 }}
+                  className="relative bg-white p-8 card-hover"
+                >
+                  <p className="font-mono text-xs text-[#808080] mb-5">{item.n}</p>
+                  <h3 className="text-lg font-semibold text-[#171717]" style={{ letterSpacing: '-0.5px' }}>{item.title}</h3>
+                  <p className="mt-3 text-sm leading-6 text-[#666666]">{item.body}</p>
+                  {i < 2 && (
+                    <div className="absolute right-0 top-1/2 hidden -translate-y-1/2 translate-x-1/2 lg:flex items-center justify-center w-5 h-5 rounded-full bg-white z-10" style={{ boxShadow: 'rgba(0,0,0,0.08) 0px 0px 0px 1px' }}>
+                      <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
+                        <path d="M1.5 4.5h6M5.5 2.5l2 2-2 2" stroke="rgba(0,0,0,0.3)" strokeWidth="1" strokeLinecap="round" />
+                      </svg>
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Right: live detection feed */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, delay: 0.15 }}
+              className="rounded-xl overflow-hidden"
+              style={{ background: '#0a0a0a', border: '1px solid #1c1c1c' }}
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between px-4 py-3 border-b border-[#1c1c1c]">
+                <div className="flex items-center gap-2">
+                  <span className="live-dot" style={{ width: 5, height: 5 }} />
+                  <span style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.1em', color: '#00a63e' }}>LIVE DETECTIONS</span>
+                </div>
+                <span style={{ fontFamily: 'monospace', fontSize: 9, color: '#333333' }}>GLOBAL · NOW</span>
+              </div>
+
+              {/* Column headers */}
+              <div className="flex items-center px-4 py-2 border-b border-[#141414]">
+                {['ASSET', 'SIG', 'ΔDISP', 'STATUS'].map((h) => (
+                  <span key={h} style={{ fontFamily: 'monospace', fontSize: 8, color: '#2a2a2a', letterSpacing: '0.08em', flex: h === 'ASSET' ? 1.2 : 1 }}>{h}</span>
+                ))}
+              </div>
+
+              {/* Scrolling feed */}
+              <div style={{ height: 288, overflow: 'hidden' }}>
+                <div style={{ animation: 'feed-scroll 14s linear infinite' }}>
+                  {[...feedItems, ...feedItems].map((entry, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center px-4"
+                      style={{ height: 36, borderBottom: '1px solid #0f0f0f' }}
+                    >
+                      <div style={{ flex: 1.2, display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <div style={{ width: 5, height: 5, borderRadius: '50%', background: statusColors[entry.status], flexShrink: 0 }} />
+                        <span style={{ fontFamily: 'monospace', fontSize: 10, color: '#888888' }}>{entry.asset}</span>
+                      </div>
+                      <span style={{ flex: 1, fontFamily: 'monospace', fontSize: 9, color: '#444444' }}>{entry.type}</span>
+                      <span style={{ flex: 1, fontFamily: 'monospace', fontSize: 10, color: statusColors[entry.status] }}>{entry.val}</span>
+                      <span style={{ flex: 1, fontFamily: 'monospace', fontSize: 9, color: '#2d2d2d', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{entry.status}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="flex items-center justify-between px-4 py-2.5 border-t border-[#1c1c1c]">
+                <span style={{ fontFamily: 'monospace', fontSize: 9, color: '#2a2a2a' }}>126 assets monitored</span>
+                <span style={{ fontFamily: 'monospace', fontSize: 9, color: '#1e1e1e' }}>6-day cycle</span>
+              </div>
+            </motion.div>
+
           </div>
         </div>
       </section>
@@ -349,7 +432,7 @@ export default function Home() {
                 >
                   <h3 className="text-[15px] font-semibold text-[#171717]" style={{ letterSpacing: '-0.4px' }}>{a.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-[#666666]">{a.description}</p>
-                  <ul className="mt-5 space-y-2">
+                  <ul className="mt-4 space-y-2">
                     {a.signals.map((s) => (
                       <li key={s} className="flex items-center gap-2">
                         <div style={{ width: 4, height: 4, borderRadius: '50%', background: '#171717', flexShrink: 0 }} />
@@ -357,6 +440,20 @@ export default function Home() {
                       </li>
                     ))}
                   </ul>
+
+                  {/* Animated signal bars */}
+                  <div className="mt-5 flex items-end gap-[3px]" style={{ height: 28 }}>
+                    {a.bars.map((h, j) => (
+                      <motion.div
+                        key={j}
+                        className="flex-1 rounded-t-[2px]"
+                        style={{ background: '#0072f5' }}
+                        animate={{ height: [`${h * 0.28}px`, `${h * 0.14}px`, `${h * 0.28 * 1.15}px`, `${h * 0.1}px`, `${h * 0.28}px`] }}
+                        transition={{ duration: 2.8 + j * 0.35, repeat: Infinity, ease: 'easeInOut', delay: j * 0.22 }}
+                      />
+                    ))}
+                  </div>
+                  <p style={{ fontFamily: 'monospace', fontSize: 9, color: '#cccccc', marginTop: 4, letterSpacing: '0.06em' }}>SIGNAL ACTIVITY</p>
                 </motion.div>
               ))}
             </div>
@@ -365,8 +462,14 @@ export default function Home() {
       </section>
 
       {/* ── Use cases ──────────────────────────────────────── */}
-      <section className="border-t border-[#ebebeb] px-6 py-24 sm:px-10 lg:px-16 section-tint">
-        <div className="mx-auto max-w-7xl">
+      <section className="border-t border-[#ebebeb] px-6 py-24 sm:px-10 lg:px-16 section-tint" style={{ position: 'relative', overflow: 'hidden' }}>
+
+        {/* Ambient glow orbs — always drifting */}
+        <div className="pointer-events-none absolute" style={{ width: 600, height: 400, top: '10%', left: '-8%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.055) 0%, transparent 65%)', filter: 'blur(40px)', animation: 'drift1 22s ease-in-out infinite' }} />
+        <div className="pointer-events-none absolute" style={{ width: 500, height: 340, bottom: '5%', right: '-5%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.04) 0%, transparent 65%)', filter: 'blur(40px)', animation: 'drift2 28s ease-in-out infinite' }} />
+        <div className="pointer-events-none absolute" style={{ width: 380, height: 280, top: '40%', left: '45%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.03) 0%, transparent 65%)', filter: 'blur(35px)', animation: 'drift3 18s ease-in-out infinite' }} />
+
+        <div className="relative mx-auto max-w-7xl">
           <div className="mb-14 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="eyebrow mb-4">Use cases</p>

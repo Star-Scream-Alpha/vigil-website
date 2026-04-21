@@ -163,3 +163,15 @@ a { color: inherit; text-decoration: none; }
   0%, 100% { opacity: 1;    transform: scale(1); }
   50%       { opacity: 0.72; transform: scale(0.94); }
 }
+
+/* ── Telemetry ticker (horizontal scroll) ────────────── */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Live detection feed (vertical scroll) ───────────── */
+@keyframes feed-scroll {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
