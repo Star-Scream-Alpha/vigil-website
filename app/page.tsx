@@ -378,9 +378,9 @@ export default function Home() {
       <section className="border-t border-[#ebebeb] px-6 py-24 sm:px-10 lg:px-16 section-tint" style={{ position: 'relative', overflow: 'hidden' }}>
 
         {/* Ambient glow orbs — always drifting */}
-        <div className="pointer-events-none absolute" style={{ width: 700, height: 480, top: '0%', left: '-10%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.18) 0%, transparent 30%)', filter: 'blur(50px)', animation: 'drift1 22s ease-in-out infinite' }} />
-        <div className="pointer-events-none absolute" style={{ width: 580, height: 400, bottom: '0%', right: '-8%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.14) 0%, transparent 30%)', filter: 'blur(50px)', animation: 'drift2 28s ease-in-out infinite' }} />
-        <div className="pointer-events-none absolute" style={{ width: 420, height: 320, top: '35%', left: '40%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.1) 0%, transparent 30%)', filter: 'blur(30px)', animation: 'drift3 18s ease-in-out infinite' }} />
+        <div className="pointer-events-none absolute" style={{ width: 700, height: 480, top: '0%', left: '-10%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.18) 0%, transparent 30%)', filter: 'blur(50px)', animation: 'drift1 2s ease-in-out infinite' }} />
+        <div className="pointer-events-none absolute" style={{ width: 580, height: 400, bottom: '0%', right: '-8%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.14) 0%, transparent 20%)', filter: 'blur(50px)', animation: 'drift2 12s ease-in-out infinite' }} />
+        <div className="pointer-events-none absolute" style={{ width: 420, height: 320, top: '35%', left: '40%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.1) 0%, transparent 15%)', filter: 'blur(30px)', animation: 'drift3 14s ease-in-out infinite' }} />
 
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-14 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
