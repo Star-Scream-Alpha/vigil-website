@@ -38,6 +38,36 @@ export default function Contact() {
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.22, ...SPRING }} className="mt-8 flex flex-wrap gap-3">
                 <a href="#form" className="rounded-full bg-[#171717] px-6 py-3 text-sm font-medium text-white hover:bg-[#333333] transition-colors">Request enterprise demo</a>
               </motion.div>
+
+              {/* Mobile visual strip */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.32, ...SPRING }}
+                className="mt-8 lg:hidden rounded-xl overflow-hidden shadow-card"
+              >
+                <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#ebebeb]">
+                  <p className="eyebrow">Team availability</p>
+                  <div className="flex items-center gap-1.5">
+                    <span className="live-dot" style={{ width: 5, height: 5 }} />
+                    <span style={{ fontFamily: 'monospace', fontSize: 9, color: '#00a63e' }}>ONLINE NOW</span>
+                  </div>
+                </div>
+                <div className="divide-y divide-[#ebebeb]">
+                  {contactCards.map((card) => (
+                    <div key={card.title} className="flex items-center gap-3 px-4 py-3">
+                      <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#00a63e', flexShrink: 0 }} />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-[#171717]">{card.title}</p>
+                        <p className="text-[11px] text-[#808080] truncate">{card.email}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="px-4 py-2.5 bg-[#fafafa] border-t border-[#ebebeb] flex items-center justify-between">
+                  <p className="text-[10px] text-[#666666]">Typical response</p>
+                  <p className="font-mono text-xs font-medium text-[#171717]">&lt; 24 hours</p>
+                </div>
+              </motion.div>
             </div>
 
             {/* Right: team status panel */}
@@ -173,7 +203,7 @@ export default function Contact() {
                 {contactCards.map((card, i) => (
                   <motion.div key={card.title} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08, ...SPRING }}
                     className="rounded-lg bg-white p-6 shadow-card card-hover">
-                    <h3 className="text-sm font-semibold text-[#171717]" style={{ letterSpacing: '-0.32px' }}>{card.title}</h3>
+                    <h3 className="text-[15px] font-semibold text-[#171717]" style={{ letterSpacing: '-0.4px' }}>{card.title}</h3>
                     <p className="mt-2 text-sm leading-6 text-[#666666]">{card.body}</p>
                     <a href={`mailto:${card.email}`} className="mt-4 block text-sm text-[#0072f5] hover:text-[#0057cc] transition-colors">{card.email}</a>
                   </motion.div>

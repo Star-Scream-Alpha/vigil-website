@@ -49,6 +49,34 @@ export default function About() {
               <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.14, ...SPRING }} className="mt-6 max-w-lg text-lg leading-8 text-[#666666]">
                 VIGIL-EARTH is engineered to support continuous monitoring, claims verification and portfolio-level risk decisions on the world's most exposed assets.
               </motion.p>
+
+              {/* Mobile visual strip */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.28, ...SPRING }}
+                className="mt-8 lg:hidden rounded-xl overflow-hidden shadow-card"
+              >
+                <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#ebebeb]">
+                  <p className="eyebrow">By the numbers</p>
+                  <div className="flex items-center gap-1.5">
+                    <span className="live-dot" style={{ width: 5, height: 5 }} />
+                    <span style={{ fontFamily: 'monospace', fontSize: 9, color: '#00a63e' }}>VALIDATED</span>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 divide-x divide-y divide-[#ebebeb]">
+                  {[
+                    { value: '±2mm', label: 'Displacement precision' },
+                    { value: '>98%', label: 'Detection accuracy' },
+                    { value: '6 days', label: 'Revisit cycle' },
+                    { value: '100+', label: 'Asset types' },
+                  ].map((s) => (
+                    <div key={s.label} className="py-4 px-4">
+                      <p className="font-mono text-base font-medium text-[#171717]">{s.value}</p>
+                      <p className="text-[10px] text-[#808080] mt-0.5 leading-4">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
             </div>
 
             {/* Right: metrics grid */}
@@ -92,7 +120,7 @@ export default function About() {
                   className="flex gap-5 rounded-lg bg-white p-6 shadow-card card-hover">
                   <p className="font-mono text-xs text-[#808080] mt-0.5 flex-shrink-0">{p.n}</p>
                   <div>
-                    <h3 className="text-sm font-semibold text-[#171717]" style={{ letterSpacing: '-0.32px' }}>{p.title}</h3>
+                    <h3 className="text-[15px] font-semibold text-[#171717]" style={{ letterSpacing: '-0.4px' }}>{p.title}</h3>
                     <p className="mt-1.5 text-sm leading-6 text-[#666666]">{p.body}</p>
                   </div>
                 </motion.div>

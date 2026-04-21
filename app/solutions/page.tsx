@@ -73,6 +73,33 @@ export default function Solutions() {
                 <a href="/contact" className="rounded-full bg-[#171717] px-6 py-3 text-sm font-medium text-white hover:bg-[#333333] transition-colors">Request demo</a>
                 <a href="/platform" className="rounded-[6px] px-6 py-3 text-sm font-medium text-[#171717] hover:bg-[#fafafa] transition-colors" style={{ boxShadow: 'rgb(235,235,235) 0px 0px 0px 1px' }}>Explore the platform</a>
               </motion.div>
+
+              {/* Mobile visual strip */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.32, ...SPRING }}
+                className="mt-8 lg:hidden rounded-xl overflow-hidden shadow-card"
+              >
+                <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#ebebeb]">
+                  <p className="eyebrow">Signal coverage</p>
+                  <div className="flex items-center gap-1.5">
+                    <span className="live-dot" style={{ width: 5, height: 5 }} />
+                    <span style={{ fontFamily: 'monospace', fontSize: 9, color: '#00a63e' }}>4 ACTIVE</span>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 divide-x divide-[#ebebeb]">
+                  {[
+                    { value: '4', label: 'Signal types' },
+                    { value: '6+', label: 'Use cases' },
+                    { value: 'Global', label: 'Coverage' },
+                  ].map((s) => (
+                    <div key={s.label} className="py-5 text-center">
+                      <p className="font-mono text-base font-medium text-[#171717]">{s.value}</p>
+                      <p className="text-[10px] text-[#808080] mt-1">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
             </div>
 
             {/* Right: Radar detection panel */}
@@ -91,16 +118,27 @@ export default function Solutions() {
                 </div>
 
                 {/* Radar visualization */}
-                <div className="relative bg-[#fafafa]" style={{ height: 240 }}>
+                <div className="relative overflow-hidden" style={{ height: 240 }}>
+
+                  {/* Terrain image */}
+                  <img src="/solutions-image.png" alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover" />
+
+                  {/* Darkening overlay so dots remain legible */}
+                  <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.35)' }} />
+
+                  {/* Coordinate grid */}
                   <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 240" fill="none">
-                    {/* Grid lines */}
                     {[0, 80, 160, 240, 320, 400].map((x) => (
-                      <line key={x} x1={x} y1="0" x2={x} y2="240" stroke="rgba(0,114,245,0.06)" strokeWidth="1" />
+                      <line key={x} x1={x} y1="0" x2={x} y2="240" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
                     ))}
                     {[0, 60, 120, 180, 240].map((y) => (
-                      <line key={y} x1="0" y1={y} x2="400" y2={y} stroke="rgba(0,114,245,0.06)" strokeWidth="1" />
+                      <line key={y} x1="0" y1={y} x2="400" y2={y} stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
                     ))}
                   </svg>
+
+                  {/* Vignette edges */}
+                  <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.45) 100%)' }} />
+
                   {/* Detection points */}
                   {detections.map((d, i) => (
                     <motion.div
@@ -111,7 +149,7 @@ export default function Solutions() {
                       className="absolute"
                       style={{ left: d.x, top: d.y, transform: 'translate(-50%, -50%)' }}
                     >
-                      <div style={{ width: 10, height: 10, borderRadius: '50%', background: d.dot }} />
+                      <div style={{ width: 10, height: 10, borderRadius: '50%', background: d.dot, boxShadow: `0 0 6px ${d.dot}` }} />
                       {/* Pulse ring */}
                       <div style={{
                         position: 'absolute', inset: -6, borderRadius: '50%',
@@ -121,7 +159,7 @@ export default function Solutions() {
                       }} />
                     </motion.div>
                   ))}
-                  <div className="absolute bottom-2 left-3" style={{ fontFamily: 'monospace', fontSize: 8, color: 'rgba(0,0,0,0.2)' }}>
+                  <div className="absolute bottom-2 left-3" style={{ fontFamily: 'monospace', fontSize: 8, color: 'rgba(255,255,255,0.5)' }}>
                     SAR coverage · 46°–49°N / 4°–12°E
                   </div>
                 </div>
@@ -156,7 +194,7 @@ export default function Solutions() {
               <motion.div key={item.title} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.09, ...SPRING }}
                 className="rounded-lg bg-white p-6 shadow-card card-hover">
                 <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg bg-[#fafafa] text-[#4d4d4d]">{item.icon}</div>
-                <h3 className="text-sm font-semibold text-[#171717]" style={{ letterSpacing: '-0.32px' }}>{item.title}</h3>
+                <h3 className="text-[15px] font-semibold text-[#171717]" style={{ letterSpacing: '-0.4px' }}>{item.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-[#666666]">{item.description}</p>
               </motion.div>
             ))}
@@ -172,7 +210,7 @@ export default function Solutions() {
               <motion.div key={item.label} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.07, ...SPRING }}
                 className="rounded-lg bg-white p-6 shadow-card card-hover">
                 <div className="flex items-start justify-between gap-3 mb-3">
-                  <h3 className="text-sm font-semibold text-[#171717]" style={{ letterSpacing: '-0.32px' }}>{item.label}</h3>
+                  <h3 className="text-[15px] font-semibold text-[#171717]" style={{ letterSpacing: '-0.4px' }}>{item.label}</h3>
                   <span className="flex-shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium bg-[#f0f0f0] text-[#4d4d4d]">{item.tag}</span>
                 </div>
                 <p className="text-sm leading-6 text-[#666666]">{item.detail}</p>

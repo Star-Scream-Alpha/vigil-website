@@ -193,24 +193,40 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.65, delay: 0.08 }}
               className="relative overflow-hidden rounded-xl"
-              style={{ height: 460, background: '#0a0a0a', boxShadow: 'rgba(0,0,0,0.08) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 8px 24px' }}
+              style={{ height: 460, boxShadow: 'rgba(0,0,0,0.08) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 8px 24px' }}
             >
+              {/* Dam image background */}
+              <img src="/dam-image.png" alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover" />
+              {/* Dark overlay — keeps UI legible over the photo */}
+              <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.42)' }} />
               {/* Terrain coordinate grid */}
               <div className="absolute inset-0 grid-bg pointer-events-none" />
 
-              {/* Displacement heat zones */}
-              <div className="absolute" style={{ width: 220, height: 145, left: '22%', top: '28%', background: 'radial-gradient(ellipse at center, rgba(180,95,35,0.42) 0%, rgba(180,95,35,0.12) 48%, transparent 70%)', filter: 'blur(6px)', transform: 'rotate(-12deg)' }} />
-              <div className="absolute" style={{ width: 90, height: 66, left: '50%', top: '37%', background: 'radial-gradient(ellipse at center, rgba(140,48,25,0.52) 0%, rgba(140,48,25,0.14) 50%, transparent 70%)', filter: 'blur(3px)' }} />
-              <div className="absolute" style={{ width: 160, height: 110, left: '10%', top: '50%', background: 'radial-gradient(ellipse at center, rgba(80,120,55,0.28) 0%, rgba(80,120,55,0.07) 50%, transparent 70%)', filter: 'blur(6px)' }} />
+              {/* ── Displacement heat zones — at base of terrain ── */}
 
-              {/* Crosshair */}
-              <div className="absolute" style={{ left: 'calc(50% + 13px)', top: 'calc(37% + 9px)' }}>
+              {/* Amber / elevated — outer halo */}
+              <div className="absolute" style={{ width: 360, height: 240, left: '4%', top: '44%', background: 'radial-gradient(ellipse at center, rgba(195,105,30,0.22) 0%, transparent 65%)', filter: 'blur(28px)' }} />
+              {/* Amber / elevated — glowing core */}
+              <div className="absolute" style={{ width: 230, height: 150, left: '12%', top: '50%', background: 'radial-gradient(ellipse at center, rgba(205,115,35,0.72) 0%, rgba(185,95,30,0.22) 48%, transparent 70%)', filter: 'blur(9px)', transform: 'rotate(-12deg)', animation: 'blob-pulse 4s ease-in-out infinite' }} />
+
+              {/* Red / critical — outer halo */}
+              <div className="absolute" style={{ width: 180, height: 140, left: '38%', top: '50%', background: 'radial-gradient(ellipse at center, rgba(175,52,25,0.28) 0%, transparent 65%)', filter: 'blur(24px)' }} />
+              {/* Red / critical — glowing core */}
+              <div className="absolute" style={{ width: 96, height: 70, left: '44%', top: '56%', background: 'radial-gradient(ellipse at center, rgba(195,58,28,0.82) 0%, rgba(150,48,22,0.28) 50%, transparent 70%)', filter: 'blur(5px)', animation: 'blob-pulse 3.2s ease-in-out 0.8s infinite' }} />
+
+              {/* Green / stable — outer halo */}
+              <div className="absolute" style={{ width: 260, height: 170, left: '56%', top: '46%', background: 'radial-gradient(ellipse at center, rgba(78,138,50,0.2) 0%, transparent 65%)', filter: 'blur(26px)' }} />
+              {/* Green / stable — glowing core */}
+              <div className="absolute" style={{ width: 170, height: 115, left: '62%', top: '52%', background: 'radial-gradient(ellipse at center, rgba(90,152,55,0.52) 0%, rgba(75,125,45,0.14) 50%, transparent 70%)', filter: 'blur(9px)', animation: 'blob-pulse 5s ease-in-out 1.6s infinite' }} />
+
+              {/* Crosshair — on critical zone */}
+              <div className="absolute" style={{ left: 'calc(44% + 13px)', top: 'calc(56% + 9px)' }}>
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                  <circle cx="14" cy="14" r="5" stroke="rgba(140,48,25,0.7)" strokeWidth="0.8" />
-                  <line x1="14" y1="0" x2="14" y2="7" stroke="rgba(140,48,25,0.45)" strokeWidth="0.8" />
-                  <line x1="14" y1="21" x2="14" y2="28" stroke="rgba(140,48,25,0.45)" strokeWidth="0.8" />
-                  <line x1="0" y1="14" x2="7" y2="14" stroke="rgba(140,48,25,0.45)" strokeWidth="0.8" />
-                  <line x1="21" y1="14" x2="28" y2="14" stroke="rgba(140,48,25,0.45)" strokeWidth="0.8" />
+                  <circle cx="14" cy="14" r="5" stroke="rgba(195,58,28,0.75)" strokeWidth="0.8" />
+                  <line x1="14" y1="0" x2="14" y2="7" stroke="rgba(195,58,28,0.45)" strokeWidth="0.8" />
+                  <line x1="14" y1="21" x2="14" y2="28" stroke="rgba(195,58,28,0.45)" strokeWidth="0.8" />
+                  <line x1="0" y1="14" x2="7" y2="14" stroke="rgba(195,58,28,0.45)" strokeWidth="0.8" />
+                  <line x1="21" y1="14" x2="28" y2="14" stroke="rgba(195,58,28,0.45)" strokeWidth="0.8" />
                 </svg>
               </div>
 
@@ -329,7 +345,7 @@ export default function Home() {
                   transition={{ duration: 0.45, delay: i * 0.09 }}
                   className="rounded-lg bg-white p-6 shadow-card card-hover"
                 >
-                  <h3 className="text-sm font-semibold text-[#171717]" style={{ letterSpacing: '-0.32px' }}>{a.title}</h3>
+                  <h3 className="text-[15px] font-semibold text-[#171717]" style={{ letterSpacing: '-0.4px' }}>{a.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-[#666666]">{a.description}</p>
                   <ul className="mt-5 space-y-2">
                     {a.signals.map((s) => (
@@ -379,7 +395,7 @@ export default function Home() {
                   {item.icon}
                 </div>
                 <div className="mb-2 flex items-start justify-between gap-2">
-                  <h3 className="text-sm font-semibold text-[#171717]" style={{ letterSpacing: '-0.3px' }}>{item.title}</h3>
+                  <h3 className="text-[15px] font-semibold text-[#171717]" style={{ letterSpacing: '-0.4px' }}>{item.title}</h3>
                   <span className="flex-shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium bg-[#f0f0f0] text-[#4d4d4d]">{item.tag}</span>
                 </div>
                 <p className="text-sm leading-6 text-[#666666]">{item.description}</p>
