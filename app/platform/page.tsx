@@ -48,16 +48,17 @@ export default function Platform() {
 
             {/* Left: copy */}
             <div>
-              <motion.p
-                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ...SPRING }}
-                className="eyebrow mb-5"
-              >Platform</motion.p>
+              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ...SPRING }} className="mb-5">
+                <span className="badge-status">
+                  <span className="live-dot" style={{ width: 5, height: 5 }} />
+                  <span className="eyebrow" style={{ color: '#0060d6' }}>Platform</span>
+                </span>
+              </motion.div>
               <motion.h1
                 initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.07, ...SPRING }}
-                className="max-w-xl text-5xl font-semibold text-[#171717] sm:text-6xl"
-                style={{ letterSpacing: '-2.4px', lineHeight: '1.04' }}
+                className="max-w-xl text-[2.75rem] font-bold text-[#171717] sm:text-[4rem] lg:text-[5rem]"
+                style={{ letterSpacing: '-3.2px', lineHeight: '0.96' }}
               >
                 The output layer for risk teams and underwriting workflows
               </motion.h1>
@@ -146,22 +147,22 @@ export default function Platform() {
         </div>
       </section>
 
-      <section id="how-it-works" className="border-t border-[#ebebeb] px-6 py-24 sm:px-10 lg:px-16">
+      <section id="how-it-works" className="px-6 py-24 sm:px-10 lg:px-16 grid-bg" style={{ background: '#0a0a0a' }}>
         <div className="mx-auto max-w-7xl">
-          <SectionHeading eyebrow="How it works" title="A disciplined sequence from satellite to decision" description="Every signal is processed through proven geospatial workflows before it reaches your risk team." />
-          <div className="mt-14 grid gap-px lg:grid-cols-5" style={{ background: '#ebebeb' }}>
+          <SectionHeading dark eyebrow="How it works" title="A disciplined sequence from satellite to decision" description="Every signal is processed through proven geospatial workflows before it reaches your risk team." />
+          <div className="mt-14 grid gap-px lg:grid-cols-5" style={{ background: '#1c1c1c' }}>
             {pipeline.map((item, i) => (
-              <motion.div key={item.n} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08, ...SPRING }} className="bg-white p-7 card-hover">
-                <p className="font-mono text-xs text-[#808080] mb-4">{item.n}</p>
-                <h3 className="text-[15px] font-semibold text-[#171717] leading-snug" style={{ letterSpacing: '-0.4px' }}>{item.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-[#666666]">{item.detail}</p>
+              <motion.div key={item.n} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08, ...SPRING }} className="p-7 card-hover" style={{ background: '#0f0f0f' }}>
+                <p className="font-mono text-xs text-[#3a3a3a] mb-4">{item.n}</p>
+                <h3 className="text-[15px] font-semibold text-white leading-snug" style={{ letterSpacing: '-0.4px' }}>{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-[#555555]">{item.detail}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="border-t border-[#ebebeb] bg-[#fafafa] px-6 py-24 sm:px-10 lg:px-16">
+      <section className="border-t border-[#ebebeb] px-6 py-24 sm:px-10 lg:px-16 section-tint">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-16 lg:grid-cols-[1fr_420px] lg:items-start">
             <div>

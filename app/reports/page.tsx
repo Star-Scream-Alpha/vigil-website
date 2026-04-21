@@ -111,12 +111,17 @@ export default function Reports() {
 
             {/* Left: copy */}
             <div>
-              <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ...SPRING }} className="eyebrow mb-5">Investor Reports</motion.p>
+              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ...SPRING }} className="mb-5">
+                <span className="badge-status">
+                  <span className="live-dot" style={{ width: 5, height: 5 }} />
+                  <span className="eyebrow" style={{ color: '#0060d6' }}>Investor Reports</span>
+                </span>
+              </motion.div>
               <motion.h1
                 initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.07, ...SPRING }}
-                className="max-w-xl text-5xl font-semibold text-[#171717] sm:text-6xl"
-                style={{ letterSpacing: '-2.4px', lineHeight: '1.04' }}
+                className="max-w-xl text-[2.75rem] font-bold text-[#171717] sm:text-[4rem] lg:text-[5rem]"
+                style={{ letterSpacing: '-3.2px', lineHeight: '0.96' }}
               >
                 Outcomes, evidence and performance data
               </motion.h1>
@@ -217,8 +222,8 @@ export default function Reports() {
         </div>
       </section>
 
-      {/* Stats bar */}
-      <div className="border-y border-[#ebebeb] bg-[#fafafa] px-6 py-8 sm:px-10 lg:px-16">
+      {/* Stats bar — dark data anchor */}
+      <div className="px-6 py-8 sm:px-10 lg:px-16 grid-bg" style={{ background: '#0b0b0b' }}>
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
             {[
@@ -228,15 +233,15 @@ export default function Reports() {
               { value: '2026', label: 'Report cycle start' },
             ].map((s) => (
               <div key={s.label}>
-                <p className="font-mono text-2xl font-medium text-[#171717]">{s.value}</p>
-                <p className="mt-1 text-sm text-[#808080]">{s.label}</p>
+                <p className="font-mono text-2xl font-medium text-white">{s.value}</p>
+                <p className="mt-1 text-sm text-[#4d4d4d]">{s.label}</p>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <section className="px-6 py-20 sm:px-10 lg:px-16">
+      <section className="px-6 py-20 sm:px-10 lg:px-16 section-tint">
         <div className="mx-auto max-w-7xl">
 
           {available.length > 0 ? (
@@ -282,7 +287,7 @@ export default function Reports() {
       </section>
 
       {/* Private access CTA */}
-      <section className="border-t border-[#ebebeb] bg-[#fafafa] px-6 py-20 sm:px-10 lg:px-16">
+      <section className="border-t border-[#ebebeb] bg-white px-6 py-20 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-7xl">
           <div className="rounded-xl bg-[#171717] px-10 py-12">
             <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">

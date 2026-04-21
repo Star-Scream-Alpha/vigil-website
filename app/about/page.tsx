@@ -37,12 +37,17 @@ export default function About() {
 
             {/* Left: copy */}
             <div>
-              <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ...SPRING }} className="eyebrow mb-5">About</motion.p>
+              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ...SPRING }} className="mb-5">
+                <span className="badge-status">
+                  <span className="live-dot" style={{ width: 5, height: 5 }} />
+                  <span className="eyebrow" style={{ color: '#0060d6' }}>About</span>
+                </span>
+              </motion.div>
               <motion.h1
                 initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.07, ...SPRING }}
-                className="max-w-xl text-5xl font-semibold text-[#171717] sm:text-6xl"
-                style={{ letterSpacing: '-2.4px', lineHeight: '1.04' }}
+                className="max-w-xl text-[2.75rem] font-bold text-[#171717] sm:text-[4rem] lg:text-[5rem]"
+                style={{ letterSpacing: '-3.2px', lineHeight: '0.96' }}
               >
                 Built for teams managing consequential infrastructure
               </motion.h1>
@@ -130,25 +135,25 @@ export default function About() {
         </div>
       </section>
 
-      <section className="border-t border-[#ebebeb] bg-[#fafafa] px-6 py-24 sm:px-10 lg:px-16">
+      <section className="px-6 py-24 sm:px-10 lg:px-16 grid-bg" style={{ background: '#0a0a0a' }}>
         <div className="mx-auto max-w-7xl">
           <div className="mb-14">
-            <p className="eyebrow mb-4">By the numbers</p>
-            <h2 className="text-3xl font-semibold text-[#171717] sm:text-4xl" style={{ letterSpacing: '-1.6px', lineHeight: '1.1' }}>Proven at enterprise scale</h2>
+            <p className="eyebrow mb-4" style={{ color: '#444444' }}>By the numbers</p>
+            <h2 className="text-3xl font-semibold text-white sm:text-4xl" style={{ letterSpacing: '-1.6px', lineHeight: '1.08' }}>Proven at enterprise scale</h2>
           </div>
-          <div className="grid gap-px sm:grid-cols-2 xl:grid-cols-4" style={{ background: '#ebebeb' }}>
+          <div className="grid gap-px sm:grid-cols-2 xl:grid-cols-4" style={{ background: '#1c1c1c' }}>
             {stats.map((s, i) => (
-              <motion.div key={s.label} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08, ...SPRING }} className="bg-white p-10 card-hover">
-                <p className="font-mono text-4xl font-medium text-[#171717]">{s.value}</p>
-                <p className="mt-3 text-sm font-semibold text-[#171717]" style={{ letterSpacing: '-0.3px' }}>{s.label}</p>
-                <p className="mt-1 text-sm text-[#808080]">{s.sub}</p>
+              <motion.div key={s.label} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08, ...SPRING }} className="p-10 card-hover" style={{ background: '#0f0f0f' }}>
+                <p className="font-mono text-4xl font-medium text-white">{s.value}</p>
+                <p className="mt-3 text-sm font-semibold text-white/70" style={{ letterSpacing: '-0.3px' }}>{s.label}</p>
+                <p className="mt-1 text-sm text-[#555555]">{s.sub}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="border-t border-[#ebebeb] px-6 py-24 sm:px-10 lg:px-16">
+      <section className="border-t border-[#ebebeb] px-6 py-24 sm:px-10 lg:px-16 section-tint">
         <div className="mx-auto max-w-7xl">
           <SectionHeading eyebrow="Technology foundation" title="Proven geospatial workflows meet modern AI" description="Our platform combines satellite remote sensing fundamentals with machine learning to detect subtle risk signals in continuous data streams." />
           <div className="mt-14 grid gap-4 lg:grid-cols-3">
