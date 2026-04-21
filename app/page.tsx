@@ -33,19 +33,16 @@ const audiences = [
     title: 'Insurers & Underwriters',
     description: 'Continuous portfolio risk visibility for underwriting decisions and pre-event claims intelligence.',
     signals: ['Displacement history', 'Risk score trends', 'Forensic evidence package'],
-    bars: [55, 80, 45, 70, 90, 38, 65],
   },
   {
     title: 'Infrastructure Operators',
     description: 'Early warning intelligence for dams, bridges, pipelines and mine sites before physical failure.',
     signals: ['Real-time alert feed', 'Asset health scores', 'Inspection prioritization'],
-    bars: [72, 40, 85, 55, 68, 92, 50],
   },
   {
     title: 'Governments & Public Sector',
     description: 'National-scale infrastructure monitoring for disaster prevention and public safety mandates.',
     signals: ['Portfolio dashboard', 'Policy-grade reporting', 'Cross-agency data access'],
-    bars: [48, 75, 60, 88, 42, 70, 82],
   },
 ];
 
@@ -139,18 +136,6 @@ const tickerItems = [
   'InSAR-5 · DAM-17 · ELEVATED · +2.1 mm · Chennai, IN',
 ];
 
-const feedItems: { asset: string; type: string; val: string; status: 'critical' | 'elevated' | 'stable'; loc: string; time: string }[] = [
-  { asset: 'DAM-02', type: 'SAR', val: '+2.8 mm', status: 'elevated', loc: 'Zurich, CH', time: '14:23' },
-  { asset: 'PIPE-14', type: 'InSAR', val: '+5.1 mm', status: 'critical', loc: 'Rotterdam, NL', time: '14:21' },
-  { asset: 'BRIDGE-07', type: 'SAR', val: '+0.2 mm', status: 'stable', loc: 'Lyon, FR', time: '14:19' },
-  { asset: 'MINE-03', type: 'InSAR', val: '+3.4 mm', status: 'elevated', loc: 'Johannesburg, ZA', time: '14:17' },
-  { asset: 'DAM-09', type: 'SAR', val: '+0.1 mm', status: 'stable', loc: 'Nairobi, KE', time: '14:15' },
-  { asset: 'BRIDGE-22', type: 'SAR', val: '+1.9 mm', status: 'elevated', loc: 'Mumbai, IN', time: '14:12' },
-  { asset: 'PIPE-08', type: 'InSAR', val: '+0.3 mm', status: 'stable', loc: 'Calgary, CA', time: '14:09' },
-  { asset: 'MINE-11', type: 'SAR', val: '+6.2 mm', status: 'critical', loc: 'Santiago, CL', time: '14:07' },
-];
-
-const statusColors = { critical: '#a84030', elevated: '#b45f23', stable: '#507837' } as const;
 
 export default function Home() {
   return (
@@ -325,86 +310,28 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid gap-8 lg:grid-cols-[1fr_320px] lg:items-start">
-
-            {/* Left: 3 step cards */}
-            <div className="grid gap-px sm:grid-cols-3 lg:grid-cols-3" style={{ background: '#ebebeb' }}>
-              {steps.map((item, i) => (
-                <motion.div
-                  key={item.n}
-                  initial={{ opacity: 0, y: 14 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.45, delay: i * 0.1 }}
-                  className="relative bg-white p-8 card-hover"
-                >
-                  <p className="font-mono text-xs text-[#808080] mb-5">{item.n}</p>
-                  <h3 className="text-lg font-semibold text-[#171717]" style={{ letterSpacing: '-0.5px' }}>{item.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-[#666666]">{item.body}</p>
-                  {i < 2 && (
-                    <div className="absolute right-0 top-1/2 hidden -translate-y-1/2 translate-x-1/2 lg:flex items-center justify-center w-5 h-5 rounded-full bg-white z-10" style={{ boxShadow: 'rgba(0,0,0,0.08) 0px 0px 0px 1px' }}>
-                      <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
-                        <path d="M1.5 4.5h6M5.5 2.5l2 2-2 2" stroke="rgba(0,0,0,0.3)" strokeWidth="1" strokeLinecap="round" />
-                      </svg>
-                    </div>
-                  )}
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Right: live detection feed */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: 0.15 }}
-              className="rounded-xl overflow-hidden"
-              style={{ background: '#0a0a0a', border: '1px solid #1c1c1c' }}
-            >
-              {/* Header */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-[#1c1c1c]">
-                <div className="flex items-center gap-2">
-                  <span className="live-dot" style={{ width: 5, height: 5 }} />
-                  <span style={{ fontFamily: 'monospace', fontSize: 9, letterSpacing: '0.1em', color: '#00a63e' }}>LIVE DETECTIONS</span>
-                </div>
-                <span style={{ fontFamily: 'monospace', fontSize: 9, color: '#333333' }}>GLOBAL · NOW</span>
-              </div>
-
-              {/* Column headers */}
-              <div className="flex items-center px-4 py-2 border-b border-[#141414]">
-                {['ASSET', 'SIG', 'ΔDISP', 'STATUS'].map((h) => (
-                  <span key={h} style={{ fontFamily: 'monospace', fontSize: 8, color: '#2a2a2a', letterSpacing: '0.08em', flex: h === 'ASSET' ? 1.2 : 1 }}>{h}</span>
-                ))}
-              </div>
-
-              {/* Scrolling feed */}
-              <div style={{ height: 288, overflow: 'hidden' }}>
-                <div style={{ animation: 'feed-scroll 14s linear infinite' }}>
-                  {[...feedItems, ...feedItems].map((entry, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center px-4"
-                      style={{ height: 36, borderBottom: '1px solid #0f0f0f' }}
-                    >
-                      <div style={{ flex: 1.2, display: 'flex', alignItems: 'center', gap: 6 }}>
-                        <div style={{ width: 5, height: 5, borderRadius: '50%', background: statusColors[entry.status], flexShrink: 0 }} />
-                        <span style={{ fontFamily: 'monospace', fontSize: 10, color: '#888888' }}>{entry.asset}</span>
-                      </div>
-                      <span style={{ flex: 1, fontFamily: 'monospace', fontSize: 9, color: '#444444' }}>{entry.type}</span>
-                      <span style={{ flex: 1, fontFamily: 'monospace', fontSize: 10, color: statusColors[entry.status] }}>{entry.val}</span>
-                      <span style={{ flex: 1, fontFamily: 'monospace', fontSize: 9, color: '#2d2d2d', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{entry.status}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Footer */}
-              <div className="flex items-center justify-between px-4 py-2.5 border-t border-[#1c1c1c]">
-                <span style={{ fontFamily: 'monospace', fontSize: 9, color: '#2a2a2a' }}>126 assets monitored</span>
-                <span style={{ fontFamily: 'monospace', fontSize: 9, color: '#1e1e1e' }}>6-day cycle</span>
-              </div>
-            </motion.div>
-
+          <div className="grid gap-px lg:grid-cols-3" style={{ background: '#ebebeb' }}>
+            {steps.map((item, i) => (
+              <motion.div
+                key={item.n}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: i * 0.1 }}
+                className="relative bg-white p-8 card-hover"
+              >
+                <p className="font-mono text-xs text-[#808080] mb-5">{item.n}</p>
+                <h3 className="text-lg font-semibold text-[#171717]" style={{ letterSpacing: '-0.5px' }}>{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-[#666666]">{item.body}</p>
+                {i < 2 && (
+                  <div className="absolute right-0 top-1/2 hidden -translate-y-1/2 translate-x-1/2 lg:flex items-center justify-center w-5 h-5 rounded-full bg-white z-10" style={{ boxShadow: 'rgba(0,0,0,0.08) 0px 0px 0px 1px' }}>
+                    <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
+                      <path d="M1.5 4.5h6M5.5 2.5l2 2-2 2" stroke="rgba(0,0,0,0.3)" strokeWidth="1" strokeLinecap="round" />
+                    </svg>
+                  </div>
+                )}
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -440,20 +367,6 @@ export default function Home() {
                       </li>
                     ))}
                   </ul>
-
-                  {/* Animated signal bars */}
-                  <div className="mt-5 flex items-end gap-[3px]" style={{ height: 28 }}>
-                    {a.bars.map((h, j) => (
-                      <motion.div
-                        key={j}
-                        className="flex-1 rounded-t-[2px]"
-                        style={{ background: '#0072f5' }}
-                        animate={{ height: [`${h * 0.28}px`, `${h * 0.14}px`, `${h * 0.28 * 1.15}px`, `${h * 0.1}px`, `${h * 0.28}px`] }}
-                        transition={{ duration: 2.8 + j * 0.35, repeat: Infinity, ease: 'easeInOut', delay: j * 0.22 }}
-                      />
-                    ))}
-                  </div>
-                  <p style={{ fontFamily: 'monospace', fontSize: 9, color: '#cccccc', marginTop: 4, letterSpacing: '0.06em' }}>SIGNAL ACTIVITY</p>
                 </motion.div>
               ))}
             </div>
@@ -465,9 +378,9 @@ export default function Home() {
       <section className="border-t border-[#ebebeb] px-6 py-24 sm:px-10 lg:px-16 section-tint" style={{ position: 'relative', overflow: 'hidden' }}>
 
         {/* Ambient glow orbs — always drifting */}
-        <div className="pointer-events-none absolute" style={{ width: 600, height: 400, top: '10%', left: '-8%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.055) 0%, transparent 65%)', filter: 'blur(40px)', animation: 'drift1 22s ease-in-out infinite' }} />
-        <div className="pointer-events-none absolute" style={{ width: 500, height: 340, bottom: '5%', right: '-5%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.04) 0%, transparent 65%)', filter: 'blur(40px)', animation: 'drift2 28s ease-in-out infinite' }} />
-        <div className="pointer-events-none absolute" style={{ width: 380, height: 280, top: '40%', left: '45%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.03) 0%, transparent 65%)', filter: 'blur(35px)', animation: 'drift3 18s ease-in-out infinite' }} />
+        <div className="pointer-events-none absolute" style={{ width: 700, height: 480, top: '0%', left: '-10%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.18) 0%, transparent 60%)', filter: 'blur(30px)', animation: 'drift1 22s ease-in-out infinite' }} />
+        <div className="pointer-events-none absolute" style={{ width: 580, height: 400, bottom: '0%', right: '-8%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.14) 0%, transparent 60%)', filter: 'blur(30px)', animation: 'drift2 28s ease-in-out infinite' }} />
+        <div className="pointer-events-none absolute" style={{ width: 420, height: 320, top: '35%', left: '40%', background: 'radial-gradient(ellipse at center, rgba(0,114,245,0.1) 0%, transparent 60%)', filter: 'blur(25px)', animation: 'drift3 18s ease-in-out infinite' }} />
 
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-14 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
