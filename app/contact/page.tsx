@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { AnimatedBg } from '../../components/AnimatedBg';
 
 const SPRING = { ease: [0.16, 1, 0.3, 1] as const };
@@ -11,7 +12,47 @@ const contactCards = [
   { title: 'Partnerships', body: 'Strategic partnerships, data sharing and joint solution development.', email: 'partnerships@vigil-earth.com' },
 ];
 
+type Status = 'idle' | 'loading' | 'success' | 'error';
+
 export default function Contact() {
+  const [status, setStatus] = useState<Status>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [form, setForm] = useState({
+    firstName: '', lastName: '', email: '', company: '', role: '', message: '',
+  });
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus('loading');
+    setErrorMsg('');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setErrorMsg(data.error ?? 'Something went wrong.');
+        setStatus('error');
+        return;
+      }
+
+      setStatus('success');
+      setForm({ firstName: '', lastName: '', email: '', company: '', role: '', message: '' });
+    } catch {
+      setErrorMsg('Network error. Please try again.');
+      setStatus('error');
+    }
+  }
+
   return (
     <div className="min-h-screen bg-white text-[#171717]">
 
@@ -138,15 +179,67 @@ export default function Contact() {
                 <p className="mt-3 text-sm leading-6 text-[#666666]">Connect with our team to discuss your specific monitoring needs and see VIGIL-EARTH in action.</p>
               </div>
 
-              <motion.form initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="space-y-5">
-                <div className="grid gap-5 sm:grid-cols-2">
+              {status === 'success' ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                  className="rounded-xl bg-[#f0faf4] px-8 py-10 text-center"
+                  style={{ boxShadow: 'rgb(235,235,235) 0px 0px 0px 1px' }}
+                >
+                  <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-[#00a63e]">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                      <path d="M3 9l4.5 4.5L15 5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                  <p className="text-base font-semibold text-[#171717]" style={{ letterSpacing: '-0.3px' }}>Message received</p>
+                  <p className="mt-2 text-sm text-[#666666]">We'll be in touch within 24 hours.</p>
+                  <button
+                    onClick={() => setStatus('idle')}
+                    className="mt-6 text-sm text-[#0072f5] hover:text-[#0057cc] transition-colors"
+                  >
+                    Send another message
+                  </button>
+                </motion.div>
+              ) : (
+                <motion.form
+                  initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="space-y-5"
+                  onSubmit={handleSubmit}
+                >
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    {[
+                      { id: 'firstName', label: 'First name', type: 'text', placeholder: 'John' },
+                      { id: 'lastName', label: 'Last name', type: 'text', placeholder: 'Smith' },
+                    ].map((f) => (
+                      <div key={f.id}>
+                        <label htmlFor={f.id} className="block text-xs font-medium text-[#4d4d4d] mb-2">{f.label}</label>
+                        <input
+                          type={f.type} id={f.id} name={f.id}
+                          placeholder={f.placeholder}
+                          value={form[f.id as keyof typeof form]}
+                          onChange={handleChange}
+                          required={f.id === 'firstName'}
+                          className="block w-full rounded-[6px] bg-white px-4 py-3 text-sm text-[#171717] placeholder-[#808080] focus:outline-none transition-shadow"
+                          style={{ boxShadow: 'rgb(235,235,235) 0px 0px 0px 1px' }}
+                          onFocus={(e) => e.currentTarget.style.boxShadow = '0px 0px 0px 2px rgba(0,114,245,0.3), rgb(235,235,235) 0px 0px 0px 1px'}
+                          onBlur={(e) => e.currentTarget.style.boxShadow = 'rgb(235,235,235) 0px 0px 0px 1px'}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
                   {[
-                    { id: 'firstName', label: 'First name', type: 'text', placeholder: 'John' },
-                    { id: 'lastName', label: 'Last name', type: 'text', placeholder: 'Smith' },
+                    { id: 'email', label: 'Work email', type: 'email', placeholder: 'john.smith@company.com' },
+                    { id: 'company', label: 'Company', type: 'text', placeholder: 'Insurance Corp' },
                   ].map((f) => (
                     <div key={f.id}>
                       <label htmlFor={f.id} className="block text-xs font-medium text-[#4d4d4d] mb-2">{f.label}</label>
-                      <input type={f.type} id={f.id} name={f.id} placeholder={f.placeholder}
+                      <input
+                        type={f.type} id={f.id} name={f.id}
+                        placeholder={f.placeholder}
+                        value={form[f.id as keyof typeof form]}
+                        onChange={handleChange}
+                        required={f.id === 'email'}
                         className="block w-full rounded-[6px] bg-white px-4 py-3 text-sm text-[#171717] placeholder-[#808080] focus:outline-none transition-shadow"
                         style={{ boxShadow: 'rgb(235,235,235) 0px 0px 0px 1px' }}
                         onFocus={(e) => e.currentTarget.style.boxShadow = '0px 0px 0px 2px rgba(0,114,245,0.3), rgb(235,235,235) 0px 0px 0px 1px'}
@@ -154,49 +247,52 @@ export default function Contact() {
                       />
                     </div>
                   ))}
-                </div>
 
-                {[
-                  { id: 'email', label: 'Work email', type: 'email', placeholder: 'john.smith@company.com' },
-                  { id: 'company', label: 'Company', type: 'text', placeholder: 'Insurance Corp' },
-                ].map((f) => (
-                  <div key={f.id}>
-                    <label htmlFor={f.id} className="block text-xs font-medium text-[#4d4d4d] mb-2">{f.label}</label>
-                    <input type={f.type} id={f.id} name={f.id} placeholder={f.placeholder}
-                      className="block w-full rounded-[6px] bg-white px-4 py-3 text-sm text-[#171717] placeholder-[#808080] focus:outline-none transition-shadow"
+                  <div>
+                    <label htmlFor="role" className="block text-xs font-medium text-[#4d4d4d] mb-2">Role</label>
+                    <select
+                      id="role" name="role"
+                      value={form.role}
+                      onChange={handleChange}
+                      className="block w-full rounded-[6px] bg-white px-4 py-3 text-sm text-[#171717] focus:outline-none transition-shadow"
+                      style={{ boxShadow: 'rgb(235,235,235) 0px 0px 0px 1px' }}
+                    >
+                      <option value="">Select your role</option>
+                      <option value="risk-manager">Risk Manager</option>
+                      <option value="underwriter">Underwriter</option>
+                      <option value="operations">Operations Manager</option>
+                      <option value="executive">Executive</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block text-xs font-medium text-[#4d4d4d] mb-2">Message</label>
+                    <textarea
+                      id="message" name="message" rows={4}
+                      placeholder="Tell us about your monitoring needs..."
+                      value={form.message}
+                      onChange={handleChange}
+                      className="block w-full rounded-[6px] bg-white px-4 py-3 text-sm text-[#171717] placeholder-[#808080] focus:outline-none transition-shadow resize-none"
                       style={{ boxShadow: 'rgb(235,235,235) 0px 0px 0px 1px' }}
                       onFocus={(e) => e.currentTarget.style.boxShadow = '0px 0px 0px 2px rgba(0,114,245,0.3), rgb(235,235,235) 0px 0px 0px 1px'}
                       onBlur={(e) => e.currentTarget.style.boxShadow = 'rgb(235,235,235) 0px 0px 0px 1px'}
                     />
                   </div>
-                ))}
 
-                <div>
-                  <label htmlFor="role" className="block text-xs font-medium text-[#4d4d4d] mb-2">Role</label>
-                  <select id="role" name="role" className="block w-full rounded-[6px] bg-white px-4 py-3 text-sm text-[#171717] focus:outline-none transition-shadow" style={{ boxShadow: 'rgb(235,235,235) 0px 0px 0px 1px' }}>
-                    <option value="">Select your role</option>
-                    <option value="risk-manager">Risk Manager</option>
-                    <option value="underwriter">Underwriter</option>
-                    <option value="operations">Operations Manager</option>
-                    <option value="executive">Executive</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
+                  {status === 'error' && (
+                    <p className="text-sm text-red-600">{errorMsg}</p>
+                  )}
 
-                <div>
-                  <label htmlFor="message" className="block text-xs font-medium text-[#4d4d4d] mb-2">Message</label>
-                  <textarea id="message" name="message" rows={4} placeholder="Tell us about your monitoring needs..."
-                    className="block w-full rounded-[6px] bg-white px-4 py-3 text-sm text-[#171717] placeholder-[#808080] focus:outline-none transition-shadow resize-none"
-                    style={{ boxShadow: 'rgb(235,235,235) 0px 0px 0px 1px' }}
-                    onFocus={(e) => e.currentTarget.style.boxShadow = '0px 0px 0px 2px rgba(0,114,245,0.3), rgb(235,235,235) 0px 0px 0px 1px'}
-                    onBlur={(e) => e.currentTarget.style.boxShadow = 'rgb(235,235,235) 0px 0px 0px 1px'}
-                  />
-                </div>
-
-                <button type="submit" className="w-full rounded-full bg-[#171717] px-6 py-3 text-sm font-medium text-white hover:bg-[#333333] transition-colors">
-                  Request enterprise demo
-                </button>
-              </motion.form>
+                  <button
+                    type="submit"
+                    disabled={status === 'loading'}
+                    className="w-full rounded-full bg-[#171717] px-6 py-3 text-sm font-medium text-white hover:bg-[#333333] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                  >
+                    {status === 'loading' ? 'Sending…' : 'Request enterprise demo'}
+                  </button>
+                </motion.form>
+              )}
             </div>
 
             <div>
