@@ -1,0 +1,397 @@
+{
+  "report_meta": {
+    "generated_at": "2026-04-25T08:51:41.456941+00:00",
+    "report_date": "2026-04-25",
+    "report_type": "VIGIL_FARM_INTELLIGENCE_REPORT_v1",
+    "next_report_due": "2026-05-01",
+    "satellite_source": "Sentinel-2 L2A via Microsoft Planetary Computer (ESA Copernicus)",
+    "weather_source": "Open-Meteo (ERA5 reanalysis + ECMWF 16-day forecast)"
+  },
+  "farm": {
+    "coordinates": {
+      "latitude": 19.14167,
+      "longitude": 73.96519
+    },
+    "location_name": "Junnar, Pune district, Maharashtra, India",
+    "elevation_m": 673,
+    "assumed_crop": "Grapes (Thompson Seedless / Sonaka)",
+    "harvest_target_date": "2026-08-15",
+    "days_to_harvest": 112,
+    "current_growth_stage": "Early bunch development / berry initiation",
+    "growth_stage_criticality": "CRITICAL — water and temperature stress at this stage directly reduces final bunch weight and berry count."
+  },
+  "satellite_findings": {
+    "scenes_analysed": 57,
+    "scenes_discovered": 186,
+    "baseline_years": [
+      2023,
+      2024,
+      2025
+    ],
+    "last_clear_satellite_observation": "2026-04-11",
+    "current_ndvi": 0.2143,
+    "current_evi": 0.198,
+    "current_ndre": 0.134,
+    "three_year_baseline_ndvi": 0.2021,
+    "ndvi_vs_baseline_pct": 6.0,
+    "interpretation": {
+      "ndvi": "Measures overall crop greenness and canopy health. Higher = healthier.",
+      "evi": "Measures active photosynthesis. Sensitive to canopy structure changes.",
+      "ndre": "Measures chlorophyll / nitrogen status. Low NDRE can indicate fertiliser need."
+    },
+    "weekly_ndvi_2026": [
+      {
+        "week_mid": "2026-04-04",
+        "ndvi": 0.2184,
+        "vs_3yr_baseline_pct": 6.7
+      },
+      {
+        "week_mid": "2026-04-11",
+        "ndvi": 0.2101,
+        "vs_3yr_baseline_pct": 4.0
+      }
+    ],
+    "stress_signal_triggered": false,
+    "satellite_verdict": "Farm is ABOVE the 3-year average for this time of year by +6%. No stress anomaly detected. Crop entered 2026 in better condition than any baseline year. Confidence is LOW because only 2 weeks of 2026 data exist — the season is very young.",
+    "data_coverage_warning": "June 27–September: Sentinel-2 will be blocked by monsoon cloud cover. VIGIL switches to weather-only signals and soil models during this blackout. Pre-monsoon imagery (April–June 20) is the most actionable satellite data this season."
+  },
+  "weather_analysis": {
+    "past_30_days": {
+      "period": "2026-03-26 to 2026-04-24",
+      "total_rainfall_mm": 3.7,
+      "avg_max_temp_c": 35.4,
+      "avg_et0_mm_per_day": 6.5,
+      "summary": "Only 3.5mm of rain in 30 days. Farm has been entirely on irrigation. Temperature trending upward through April."
+    },
+    "forecast_16_days": {
+      "period": "2026-04-25 to 2026-05-10",
+      "total_rainfall_mm": 0.0,
+      "avg_max_temp_c": 37.4,
+      "avg_et0_mm_per_day": 7.5,
+      "total_et0_demand_mm": 120.5,
+      "days_above_38c": 5,
+      "days_above_40c": 1,
+      "daily_forecast": [
+        {
+          "date": "2026-04-25",
+          "tmax_c": 39.6,
+          "tmin_c": 23.2,
+          "rain_mm": 0.0,
+          "et0_mm": 6.72,
+          "rh_max_pct": 61,
+          "rh_min_pct": 14,
+          "alert": "HEAT WAVE"
+        },
+        {
+          "date": "2026-04-26",
+          "tmax_c": 40.3,
+          "tmin_c": 24.0,
+          "rain_mm": 0.0,
+          "et0_mm": 7.8,
+          "rh_max_pct": 42,
+          "rh_min_pct": 14,
+          "alert": "EXTREME HEAT"
+        },
+        {
+          "date": "2026-04-27",
+          "tmax_c": 38.1,
+          "tmin_c": 24.6,
+          "rain_mm": 0.0,
+          "et0_mm": 8.15,
+          "rh_max_pct": 69,
+          "rh_min_pct": 18,
+          "alert": "HEAT WAVE"
+        },
+        {
+          "date": "2026-04-28",
+          "tmax_c": 37.4,
+          "tmin_c": 23.5,
+          "rain_mm": 0.0,
+          "et0_mm": 8.25,
+          "rh_max_pct": 71,
+          "rh_min_pct": 18,
+          "alert": "HOT"
+        },
+        {
+          "date": "2026-04-29",
+          "tmax_c": 37.7,
+          "tmin_c": 23.4,
+          "rain_mm": 0.0,
+          "et0_mm": 8.0,
+          "rh_max_pct": 81,
+          "rh_min_pct": 15,
+          "alert": "HOT"
+        },
+        {
+          "date": "2026-04-30",
+          "tmax_c": 37.2,
+          "tmin_c": 19.8,
+          "rain_mm": 0.0,
+          "et0_mm": 7.41,
+          "rh_max_pct": 88,
+          "rh_min_pct": 18,
+          "alert": "HOT"
+        },
+        {
+          "date": "2026-05-01",
+          "tmax_c": 36.0,
+          "tmin_c": 19.5,
+          "rain_mm": 0.0,
+          "et0_mm": 7.35,
+          "rh_max_pct": 100,
+          "rh_min_pct": 26,
+          "alert": "HOT"
+        },
+        {
+          "date": "2026-05-02",
+          "tmax_c": 36.3,
+          "tmin_c": 20.1,
+          "rain_mm": 0.0,
+          "et0_mm": 7.41,
+          "rh_max_pct": 100,
+          "rh_min_pct": 25,
+          "alert": "HOT"
+        },
+        {
+          "date": "2026-05-03",
+          "tmax_c": 36.7,
+          "tmin_c": 19.6,
+          "rain_mm": 0.0,
+          "et0_mm": 7.34,
+          "rh_max_pct": 100,
+          "rh_min_pct": 25,
+          "alert": "HOT"
+        },
+        {
+          "date": "2026-05-04",
+          "tmax_c": 35.8,
+          "tmin_c": 19.0,
+          "rain_mm": 0.0,
+          "et0_mm": 7.26,
+          "rh_max_pct": 100,
+          "rh_min_pct": 23,
+          "alert": "HOT"
+        },
+        {
+          "date": "2026-05-05",
+          "tmax_c": 36.8,
+          "tmin_c": 20.0,
+          "rain_mm": 0.0,
+          "et0_mm": 7.04,
+          "rh_max_pct": 100,
+          "rh_min_pct": 20,
+          "alert": "HOT"
+        },
+        {
+          "date": "2026-05-06",
+          "tmax_c": 38.2,
+          "tmin_c": 21.0,
+          "rain_mm": 0.0,
+          "et0_mm": 6.76,
+          "rh_max_pct": 100,
+          "rh_min_pct": 16,
+          "alert": "HEAT WAVE"
+        },
+        {
+          "date": "2026-05-07",
+          "tmax_c": 37.7,
+          "tmin_c": 20.0,
+          "rain_mm": 0.0,
+          "et0_mm": 7.49,
+          "rh_max_pct": 100,
+          "rh_min_pct": 12,
+          "alert": "HOT"
+        },
+        {
+          "date": "2026-05-08",
+          "tmax_c": 35.9,
+          "tmin_c": 19.4,
+          "rain_mm": 0.0,
+          "et0_mm": 7.61,
+          "rh_max_pct": 100,
+          "rh_min_pct": 14,
+          "alert": "HOT"
+        },
+        {
+          "date": "2026-05-09",
+          "tmax_c": 35.8,
+          "tmin_c": 19.2,
+          "rain_mm": 0.0,
+          "et0_mm": 7.84,
+          "rh_max_pct": 100,
+          "rh_min_pct": 19,
+          "alert": "HOT"
+        },
+        {
+          "date": "2026-05-10",
+          "tmax_c": 38.4,
+          "tmin_c": 21.0,
+          "rain_mm": 0.0,
+          "et0_mm": 8.08,
+          "rh_max_pct": 84,
+          "rh_min_pct": 18,
+          "alert": "HEAT WAVE"
+        }
+      ]
+    }
+  },
+  "farmer_report": {
+    "language_note": "This section is written for the farmer. No technical jargon.",
+    "overall_verdict": "ACT NOW — Crop stress building. Multiple interventions required.",
+    "verdict_color": "red",
+    "farm_health_score": 67,
+    "farm_health_label": "FAIR",
+    "yield_risk_level": "MODERATE",
+    "money_at_risk_per_acre_rs": 48000,
+    "money_at_risk_50_acres_rs": 2400000,
+    "money_at_risk_100_acres_rs": 4800000,
+    "plain_english_summary": "Your farm looks GOOD from the satellite — it is greener than last year and the two years before that at this same time. That means the crop started 2026 strong. BUT a heat wave is arriving TODAY. Temperatures will reach 40°C today and tomorrow, and stay above 38°C for 5 of the next 16 days. There is NO rain expected for the next 16 days. Your grapes are in a very important stage right now — the bunches are forming. If they do not get enough water in the next few days, the bunches will drop and your August harvest will be smaller. This is the most important week of your season.",
+    "actions": {
+      "do_today": [
+        {
+          "action": "Increase irrigation — morning AND evening runs",
+          "reason": "40°C heat with zero rain. Your soil is losing 7-8 litres of water per square metre every day. Normal one-time irrigation is not enough today.",
+          "how": "Run drip irrigation 5–7 AM and again 7–9 PM. Do NOT irrigate at noon — the water will evaporate before reaching the roots.",
+          "water_needed_per_acre_today_litres": 14357
+        },
+        {
+          "action": "Apply mulch around vine base",
+          "reason": "Mulch keeps the soil cool and holds moisture. In 40°C heat, unmulched soil can lose 30–40% extra water.",
+          "how": "Spread dry crop waste or dry grass 5–8 cm thick around each vine base. Keep it away from the trunk itself.",
+          "estimated_water_saving": "250–400 litres per acre per day"
+        }
+      ],
+      "do_this_week": [
+        {
+          "action": "Walk the farm in early morning and check bunches",
+          "reason": "After 3 days of heat above 38°C, small developing bunches may start to wilt or drop. Early detection means you can act before it spreads.",
+          "what_to_look_for": "Yellow or brown tips on young leaves. Bunches that look limp or dried in the morning (not just afternoon heat). Any bunch drop on the ground.",
+          "if_you_see_it": "Increase irrigation by 20% and call your agronomist. VIGIL will also flag this on the next satellite pass."
+        },
+        {
+          "action": "Do NOT apply nitrogen fertiliser this week",
+          "reason": "Nitrogen in heat wave conditions pushes leaf growth at the expense of the developing bunches. Wait for temperatures to drop below 35°C."
+        }
+      ],
+      "do_this_month": [
+        {
+          "action": "Prepare for monsoon fungal disease — inspect spray schedule",
+          "reason": "Monsoon (June onwards) brings downy mildew and powdery mildew — the two biggest grape killers in Pune. Pre-monsoon preventive spray saves costly post-infection treatment.",
+          "when": "Start preventive copper/sulphur spray schedule by last week of May."
+        },
+        {
+          "action": "Apply potash (potassium) fertiliser in early May",
+          "reason": "Potassium improves berry sizing and sugar content. Apply before June — after that, monsoon will dilute effect.",
+          "dose": "Standard: 60–80 kg K2O per acre. Ask your dealer for SOP or MOP."
+        }
+      ]
+    },
+    "forecast_summary": {
+      "next_6_days": {
+        "period": "2026-04-25 to 2026-04-30",
+        "headline": "HEAT WAVE — maximum temperatures 37–40°C, zero rain.",
+        "daily": [
+          {
+            "date": "2026-04-25",
+            "max_temp_c": 39.6,
+            "rain_mm": 0.0,
+            "farmer_instruction": "Irrigate morning + evening. Check bunches at sunrise."
+          },
+          {
+            "date": "2026-04-26",
+            "max_temp_c": 40.3,
+            "rain_mm": 0.0,
+            "farmer_instruction": "Irrigate morning + evening. Stay alert for bunch stress."
+          },
+          {
+            "date": "2026-04-27",
+            "max_temp_c": 38.1,
+            "rain_mm": 0.0,
+            "farmer_instruction": "Irrigate morning + evening. Check bunches at sunrise."
+          },
+          {
+            "date": "2026-04-28",
+            "max_temp_c": 37.4,
+            "rain_mm": 0.0,
+            "farmer_instruction": "Normal irrigation. Monitor leaves."
+          },
+          {
+            "date": "2026-04-29",
+            "max_temp_c": 37.7,
+            "rain_mm": 0.0,
+            "farmer_instruction": "Normal irrigation. Monitor leaves."
+          },
+          {
+            "date": "2026-04-30",
+            "max_temp_c": 37.2,
+            "rain_mm": 0.0,
+            "farmer_instruction": "Normal irrigation. Monitor leaves."
+          }
+        ]
+      },
+      "next_2_weeks": {
+        "period": "2026-04-25 to 2026-05-08",
+        "headline": "Continued dry heat (35–40°C). No rain in forecast. Irrigation is the only water source.",
+        "irrigation_total_per_acre_litres": 268168,
+        "key_risk": "Unmanaged water stress during bunch formation reduces final bunch weight by 20–30%."
+      },
+      "next_1_month": {
+        "period": "2026-04-25 to 2026-05-25",
+        "headline": "Pre-monsoon heat continues. Most critical irrigation period of the season.",
+        "advice": "Keep soil moisture above 60% field capacity. Apply potash in early May. Avoid high nitrogen."
+      },
+      "next_6_months": {
+        "period": "2026-04-25 to 2026-10-25",
+        "headline": "Harvest expected August 2026. Monsoon brings disease risk from June.",
+        "key_risks": [
+          "Downy mildew, powdery mildew (June–July)",
+          "Botrytis on ripe bunches (July–August near harvest)"
+        ],
+        "upside": "2026 crop started above the 3-year historical average. If irrigation is managed well through May, this season could yield 10–15% more than the 2023–2025 average."
+      }
+    }
+  },
+  "financial_model": {
+    "assumptions": {
+      "yield_per_acre_kg": 8000,
+      "farmgate_price_per_kg_rs": 40,
+      "gross_revenue_per_acre_rs": 320000
+    },
+    "this_season_heat_risk": {
+      "heat_wave_yield_loss_pct_if_unmanaged": 15.0,
+      "money_at_risk_per_acre_rs": 48000,
+      "for_6_acres_rs": 288000,
+      "for_50_acres_rs": 2400000,
+      "for_100_acres_rs": 4800000,
+      "note": "If irrigation is managed correctly over the next 2 weeks, this risk is largely avoided."
+    },
+    "annual_savings_per_acre": {
+      "irrigation_optimisation_rs": 5000,
+      "fertiliser_precision_targeting_rs": 5000,
+      "pesticide_early_disease_alert_rs": 8750,
+      "yield_loss_prevention_rs": 32000,
+      "total_rs": 50750
+    },
+    "vigil_fee_model": "10% of documented savings. You pay nothing if we save you nothing.",
+    "vigil_fee_per_acre_per_year_rs": 5075,
+    "farmer_net_gain_per_acre_per_year_rs": 45675,
+    "farmer_net_gain_50_acres_rs": 2283750
+  },
+  "data_confidence": {
+    "satellite": "LOW — 2 weeks of 2026 data. Improves each month.",
+    "weather_0_to_7_days": "HIGH",
+    "weather_8_to_16_days": "MODERATE",
+    "monsoon_satellite_blackout": "June 27 – September: near-zero satellite data. VIGIL uses weather-only models.",
+    "next_expected_satellite_pass": "~2026-04-30"
+  },
+  "artifacts": {
+    "ndvi_trend_chart_png": "configs/outputs/pune_grapes_live/figures/ndvi_baseline_vs_target.png",
+    "evi_trend_chart_png": "configs/outputs/pune_grapes_live/figures/evi_baseline_vs_target.png",
+    "ndre_trend_chart_png": "configs/outputs/pune_grapes_live/figures/ndre_baseline_vs_target.png",
+    "composite_stress_chart_png": "configs/outputs/pune_grapes_live/figures/composite_stress_signal.png",
+    "spatial_warning_map_png": "configs/outputs/pune_grapes_live/figures/ndvi_warning_map.png",
+    "scene_metrics_csv": "configs/outputs/pune_grapes_live/tables/scene_metrics.csv",
+    "weekly_metrics_csv": "configs/outputs/pune_grapes_live/tables/weekly_metrics.csv",
+    "baseline_vs_target_csv": "configs/outputs/pune_grapes_live/tables/target_vs_baseline.csv"
+  }
+}

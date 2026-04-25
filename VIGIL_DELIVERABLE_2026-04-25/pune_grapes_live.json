@@ -1,0 +1,58 @@
+{
+  "project_name": "Pune Vineyard Live Crop Intelligence",
+  "crop_name": "grapes",
+  "region_name": "Junnar, Pune district, Maharashtra, India",
+  "aoi": {
+    "north": 19.155,
+    "south": 19.128,
+    "west": 73.951,
+    "east": 73.979
+  },
+  "data_source": {
+    "mode": "stac",
+    "stac_api_url": "https://planetarycomputer.microsoft.com/api/stac/v1",
+    "collection": "sentinel-2-l2a",
+    "sign_assets": "planetary_computer",
+    "local_manifest": null,
+    "max_cloud_cover": 70,
+    "limit": 400,
+    "asset_map": {
+      "blue": "B02",
+      "red": "B04",
+      "red_edge": "B05",
+      "nir": "B08",
+      "scene_classification": "SCL"
+    }
+  },
+  "processing": {
+    "reflectance_scale": 10000.0,
+    "valid_scl_classes": [4, 5, 7],
+    "minimum_valid_fraction": 0.20,
+    "save_spatial_metrics": ["ndvi", "ndre"]
+  },
+  "season": {
+    "start_month": 4,
+    "start_day": 1,
+    "end_month": 8,
+    "end_day": 31,
+    "harvest_month": 8,
+    "harvest_day": 15,
+    "target_season_year": 2026,
+    "baseline_lookback_years": 3,
+    "aggregation_days": 7
+  },
+  "anomaly": {
+    "primary_metric": "ndvi",
+    "stress_metrics": ["ndvi", "evi", "ndre"],
+    "smoothing_window": 3,
+    "std_floor": 0.03,
+    "early_warning_z_threshold": 1.25,
+    "early_warning_persistence_weeks": 2,
+    "minimum_baseline_observations": 2,
+    "preharvest_lead_days": 45,
+    "critical_window_days": 42
+  },
+  "outputs": {
+    "root_dir": "outputs/pune_grapes_live"
+  }
+}
