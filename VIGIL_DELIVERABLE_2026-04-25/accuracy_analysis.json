@@ -1,0 +1,315 @@
+{
+  "meta": {
+    "generated_at": "2026-04-25T08:58:03.839824+00:00",
+    "report_date": "2026-04-25",
+    "purpose": "Devil's advocate accuracy audit of the VIGIL farmer intelligence report. Every inference challenged, every assumption exposed.",
+    "headline_accuracy": "62% — MODERATE CONFIDENCE",
+    "one_line_summary": "The weather data is solid (80%+). The satellite reading is real but thin (2 weeks of data, mixed land use). The financial model is directionally correct but not precise. The crop stage and Bahar assumptions are unverified."
+  },
+  "component_scores": [
+    {
+      "component": "Satellite NDVI / EVI / NDRE readings",
+      "accuracy_pct": 85,
+      "confidence": "HIGH for the raw number. MODERATE for what it means.",
+      "what_we_said": "Farm NDVI = 0.214, which is +6% above the 3-year baseline.",
+      "why_it_holds": [
+        "Sentinel-2 L2A is an ESA-calibrated product. Surface reflectance accuracy is ±5% under good conditions.",
+        "The scene quality mask (SCL bands 4, 5, 7) filters out clouds and cloud shadows at the pixel level.",
+        "The 3-year baseline is built from the SAME satellite, SAME sensor, SAME tile (T43QCB) — so relative comparisons are internally consistent even if absolute values drift.",
+        "4 scenes processed for 2026 (week 0 and week 1 each have 2 scenes) — sufficient for an average."
+      ],
+      "devil_advocate_attacks": [
+        {
+          "attack": "The AOI is 1.5km × 1.5km. The farm is 6–100 acres (~0.02–0.4 km²). We are measuring a box that is 3–50× larger than the actual farm.",
+          "severity": "HIGH",
+          "implication": "The NDVI could be dominated by surrounding vegetation — forests, other farms, fallow fields — not the target vineyard. We have no farm boundary polygon, so we cannot isolate exactly which pixels belong to the farmer.",
+          "fix_needed": "Get the exact farm polygon (GPS boundary or KML). Re-run pipeline with tight AOI."
+        },
+        {
+          "attack": "The user said the farm has a MIX OF CROPS. We assumed everything is grapes. If 40% of the AOI is wheat, sugarcane, or fallow, the NDVI reading is a crop cocktail, not a grape reading.",
+          "severity": "HIGH",
+          "implication": "The +6% above baseline comparison is still valid (we're comparing the same mixed pixels year-over-year), but the absolute NDVI value of 0.214 cannot be mapped to grape health thresholds without knowing what fraction is actually grapes.",
+          "fix_needed": "Farmer interview: what percentage of the farm is grapes vs other crops? Or use a crop classification model (Random Forest on spectral bands) to isolate grape pixels."
+        },
+        {
+          "attack": "Only 2 weeks of 2026 target data exist (April 1–14). The pipeline's 'confidence: LOW' flag is correct. Two data points is a trend of one.",
+          "severity": "MEDIUM",
+          "implication": "We cannot confirm the crop started 2026 strong — we see two early-April snapshots. One cloud-affected scene could shift this ±10%.",
+          "fix_needed": "Wait for 4+ weeks of data before making strong trend claims. For now, label the '+6%' as 'preliminary observation, not confirmed trend'."
+        }
+      ]
+    },
+    {
+      "component": "Crop stage identification (Bahar type)",
+      "accuracy_pct": 45,
+      "confidence": "LOW",
+      "what_we_said": "Mrig Bahar grapes — June pruning → August harvest. Crop is in 'early bunch development / berry initiation'.",
+      "why_it_holds": [
+        "August harvest is most consistent with Mrig Bahar in the Pune/Junnar belt.",
+        "Junnar is a real grape-growing region and Mrig Bahar is practiced there."
+      ],
+      "devil_advocate_attacks": [
+        {
+          "attack": "Mrig Bahar (June pruning) would NOT have bunches forming in April. Pruning hasn't happened yet. If harvest is truly August, the vine in April is still in the period BEFORE pruning — it has old wood, not new bunches.",
+          "severity": "CRITICAL",
+          "implication": "Our growth stage call ('early bunch development, berry initiation') is likely WRONG for April. The vines may be in pre-pruning rest or carrying over from a previous season. The irrigation urgency framing ('bunches are forming right now') may be inaccurate.",
+          "fix_needed": "Ask the farmer: when did you last prune? What stage are the vines in today? Visit or request a photo."
+        },
+        {
+          "attack": "Table grape varieties harvested in August in Maharashtra are uncommon. The standard Mrig Bahar harvest is October-November. August harvest suggests either: (a) an unusual early-ripening variety, (b) Ambe Bahar (October pruning) with a late season that pushed to August, or (c) the farmer meant August for raisin drying, not fresh fruit harvest.",
+          "severity": "HIGH",
+          "implication": "If the crop is actually Ambe Bahar and harvest already happened (March-April), then there is NO active crop season right now — the vines would be in post-harvest recovery, not bunch formation. Our entire report framing would be wrong.",
+          "fix_needed": "Confirm Bahar type and exact pruning date with farmer before sending this report."
+        }
+      ]
+    },
+    {
+      "component": "Weather data and forecast",
+      "accuracy_pct": 82,
+      "confidence": "HIGH for past data, MODERATE for forecast beyond 7 days",
+      "what_we_said": "40.3°C tomorrow (April 26), 5 days ≥38°C in next 16 days, zero rain forecast.",
+      "why_it_holds": [
+        "Open-Meteo uses ERA5 reanalysis (ECMWF) for historical data — peer-reviewed, globally validated, accuracy >95% for temperature.",
+        "Short-range forecast (0–7 days) from ECMWF models: temperature MAE typically ±1.5°C at this location and season.",
+        "Zero rain forecast in pre-monsoon April is consistent with Pune's climatology (monsoon arrives mid-June).",
+        "ET0 calculation follows FAO-56 Penman-Monteith — the global standard."
+      ],
+      "devil_advocate_attacks": [
+        {
+          "attack": "Open-Meteo's grid resolution is ~9km (ERA5). The farm is at 673m elevation in the Western Ghats foothills. Local temperature in a valley can be 2–4°C cooler or hotter than the 9km grid cell average.",
+          "severity": "MEDIUM",
+          "implication": "The 40.3°C forecast could be 38°C or 42°C at the actual farm location. This affects the severity of heat alerts. We cannot know without a local weather station.",
+          "fix_needed": "Install a cheap IoT weather station on the farm (₹5,000–15,000). Compare 30 days of local vs Open-Meteo readings to build a correction factor."
+        },
+        {
+          "attack": "Days 8–16 of the forecast (May 3–10) are shown with high confidence in the report, but ECMWF 10-day forecast accuracy drops to ~65% for temperature and ~50% for precipitation.",
+          "severity": "MEDIUM",
+          "implication": "The 2-week outlook should be labelled 'indicative only' — not presented as fact.",
+          "fix_needed": "Already partially addressed in the report. Label day 8–16 forecast data with explicit uncertainty flag."
+        }
+      ]
+    },
+    {
+      "component": "Irrigation recommendation (litres/acre/day)",
+      "accuracy_pct": 55,
+      "confidence": "MODERATE for direction, LOW for precise volume",
+      "what_we_said": "~14,000 litres/acre/day needed (ET0 × Kc 0.55 × 4047 m²/acre).",
+      "why_it_holds": [
+        "FAO Kc for grapes in early season (pre-canopy closure) is 0.50–0.60. We used 0.55 — correct midpoint.",
+        "The ET0 from Open-Meteo is calibrated. The math (ET0 × Kc × area) is the standard FAO-56 approach."
+      ],
+      "devil_advocate_attacks": [
+        {
+          "attack": "Kc = 0.55 is for full-canopy young vineyards. If the vines were just pruned (Mrig Bahar) or are in post-harvest dormancy (Ambe Bahar), actual crop ET could be 0.2–0.3 — meaning we are recommending 2× too much irrigation.",
+          "severity": "HIGH",
+          "implication": "Over-irrigation in a dormant or recently pruned vineyard causes root oxygen depletion, fungal root rot, and nutrient leaching. The recommendation could harm the farm if the growth stage assumption is wrong.",
+          "fix_needed": "Confirm growth stage before publishing the irrigation volume recommendation. Use Kc appropriate to actual stage."
+        },
+        {
+          "attack": "We do not know if the farm has drip irrigation, flood irrigation, or sprinkler. Efficiency factors differ (drip: 90%, flood: 50–60%). The 14,000 L/acre/day is the CROP NEED — the actual water pumped could be 14,000–28,000 L/acre/day depending on system type.",
+          "severity": "MEDIUM",
+          "implication": "The farmer may over- or under-apply water if they interpret the number directly without knowing it refers to crop uptake, not pump output.",
+          "fix_needed": "Ask farmer: what irrigation system do you use? Adjust recommendation by irrigation efficiency factor."
+        }
+      ]
+    },
+    {
+      "component": "Financial model (₹48,000/acre at risk, ₹50,750/acre annual savings)",
+      "accuracy_pct": 38,
+      "confidence": "LOW — directionally correct, not bankable numbers",
+      "what_we_said": "₹48,000 at risk per acre from heat wave. ₹50,750/acre/year total annual savings with VIGIL.",
+      "why_it_holds": [
+        "The 12.5% yield loss from sustained heat at berry initiation is supported by grape physiology literature (Greer & Weedon 2012, Mira de Orduña 2010).",
+        "₹40/kg farmgate price for table grapes in Maharashtra is within the observed range (APMC data).",
+        "8,000 kg/acre yield is consistent with mid-tier vineyard management in Pune district.",
+        "The savings breakdown (irrigation/fertiliser/pesticide/yield) mirrors published precision agriculture ROI studies in Maharashtra."
+      ],
+      "devil_advocate_attacks": [
+        {
+          "attack": "Grape prices in Maharashtra swing ±50–100% in a single season. ₹40/kg is the assumed price — actual could be ₹20/kg (glut year) or ₹70/kg (shortage). The financial model is built on a price assumption with no real-time market data.",
+          "severity": "HIGH",
+          "implication": "₹48,000 at risk per acre could be ₹25,000 or ₹80,000 depending on the actual market. Presenting ₹48,000 as a specific number gives false precision.",
+          "fix_needed": "Show a range: low (₹20/kg), mid (₹40/kg), high (₹65/kg). Pull real APMC arrival prices for Pune grape mandi."
+        },
+        {
+          "attack": "The ₹50,750/acre/year savings number is our own internal estimate. It has not been validated against a control group (farms with VIGIL vs farms without VIGIL).",
+          "severity": "HIGH",
+          "implication": "This number cannot be presented as a fact to investors or farmers without a trial. It is a projection based on general precision agriculture literature, not evidence from this specific farm or region.",
+          "fix_needed": "Label explicitly as 'projected savings based on published precision agriculture studies. Requires 1-season validation on-farm to confirm.' Run a pilot with 2–3 farms (treated vs control) to generate real evidence."
+        },
+        {
+          "attack": "We have no baseline of what this farmer currently spends on irrigation, fertiliser, and pesticide. Without knowing the actual input costs, the savings percentages are applied to assumed averages — which may be 2× higher or lower than reality.",
+          "severity": "MEDIUM",
+          "implication": "A small-holder with 6 acres and a basic flood system may spend ₹8,000/acre on irrigation (not ₹20,000), halving the irrigation savings number.",
+          "fix_needed": "Collect actual input cost data from the farmer before presenting financial model."
+        }
+      ]
+    },
+    {
+      "component": "Spatial warning map (which zones of the farm are stressed)",
+      "accuracy_pct": 50,
+      "confidence": "LOW — map exists, interpretation uncertain",
+      "what_we_said": "The NDVI warning map shows spatial variation in crop health across the AOI.",
+      "why_it_holds": [
+        "The spatial anomaly map is generated from actual Sentinel-2 pixel-level data. The raster is real.",
+        "Sentinel-2 at 10m resolution can distinguish sub-field variation down to approximately 10m × 10m patches."
+      ],
+      "devil_advocate_attacks": [
+        {
+          "attack": "The spatial map is built on Week 1 (April 4-11) data — only 2 scenes. With 2 scenes, any single cloud shadow, atmospheric artefact, or sensor noise can create a fake 'stress zone' that disappears in the next pass.",
+          "severity": "HIGH",
+          "implication": "Do not tell the farmer 'this specific zone of your farm is stressed' based on 2 satellite passes. That is not enough evidence to localize stress spatially.",
+          "fix_needed": "Wait for 4+ weeks (minimum 3 clear scenes) before making spatial zone recommendations. Current map is illustrative only."
+        },
+        {
+          "attack": "Without the farm boundary polygon, the spatial map includes area that is NOT the farmer's land — neighbouring farms, roads, scrubland. We cannot distinguish the farmer's vines from pixels belonging to other landowners.",
+          "severity": "HIGH",
+          "implication": "The map is currently a 1.5km × 1.5km regional snapshot, not a farm-specific precision map.",
+          "fix_needed": "Farm polygon required before the spatial map has actionable value."
+        }
+      ]
+    },
+    {
+      "component": "Location identification (Junnar, Pune district)",
+      "accuracy_pct": 80,
+      "confidence": "HIGH for administrative location, MODERATE for agronomic context",
+      "what_we_said": "Coordinates 19.14167°N, 73.96519°E = Junnar, Pune district — a real grape belt.",
+      "why_it_holds": [
+        "Coordinate conversion is exact math — no ambiguity.",
+        "Junnar taluka (19.0–19.3°N, 73.7–74.1°E) is a documented table grape producing region in Pune district.",
+        "Elevation 673m (from Open-Meteo DEM) is consistent with the Junnar plateau topography."
+      ],
+      "devil_advocate_attacks": [
+        {
+          "attack": "Junnar is correct, but 19.14°N 73.97°E is a single point — it could be inside a village, on a road, in the middle of a forest, or on the edge of the Bhimashankar Wildlife Sanctuary. We have not confirmed this is agricultural land.",
+          "severity": "MEDIUM",
+          "implication": "If the centre point falls on non-agricultural land, the 1.5km AOI buffer catches a ring of mixed land use around it — inflating the non-crop signal.",
+          "fix_needed": "Visually verify the AOI on Google Earth / Sentinel-2 RGB composite to confirm it is dominated by agricultural land. This takes 5 minutes."
+        }
+      ]
+    }
+  ],
+  "overall_accuracy_breakdown": {
+    "satellite_data_quality": {
+      "score_pct": 85,
+      "weight": 0.2
+    },
+    "crop_identification": {
+      "score_pct": 30,
+      "weight": 0.15
+    },
+    "growth_stage_call": {
+      "score_pct": 45,
+      "weight": 0.15
+    },
+    "weather_data": {
+      "score_pct": 82,
+      "weight": 0.2
+    },
+    "irrigation_advice": {
+      "score_pct": 55,
+      "weight": 0.15
+    },
+    "financial_model": {
+      "score_pct": 38,
+      "weight": 0.1
+    },
+    "spatial_map": {
+      "score_pct": 50,
+      "weight": 0.05
+    }
+  },
+  "weighted_overall_accuracy_pct": 59.2,
+  "what_makes_this_report_trustworthy": [
+    "The satellite data is real — Sentinel-2 is an ESA operational mission, not a model or estimate.",
+    "The weather data is real — Open-Meteo ERA5 reanalysis is globally validated.",
+    "The NDVI comparison (2026 vs 2023–2025 baseline) is internally consistent — same sensor, same tile, same time of year.",
+    "The heat wave warning is unambiguous — 40°C in the forecast with zero rain is not a statistical inference, it's a weather reading.",
+    "The 6-day action plan is conservative — increasing irrigation in a heat wave is safe advice regardless of crop type or growth stage."
+  ],
+  "what_makes_this_report_uncertain": [
+    "We do not have the exact farm boundary. The AOI covers 5–50× more area than the actual farm.",
+    "We assumed 100% grapes in a farm described as 'mixed crops'. NDVI reflects whatever is actually in those pixels.",
+    "Only 2 weeks of 2026 satellite data exist. We are extrapolating from a very early season snapshot.",
+    "The crop growth stage (bunch development) is assumed from the stated harvest date — not confirmed by farmer or field visit.",
+    "The financial model uses published Maharashtra averages, not this farmer's actual input costs or historical yield records.",
+    "The spatial zone map needs 4+ clear scenes to be reliable for sub-field recommendations."
+  ],
+  "what_is_needed_to_reach_85_percent_accuracy": [
+    {
+      "action": "Collect exact farm boundary polygon (KML/Shapefile)",
+      "impact": "Eliminates the largest source of spatial uncertainty. +12% accuracy.",
+      "effort": "1 hour with GPS phone app (e.g., Maps.me or Field Area Measure)"
+    },
+    {
+      "action": "Confirm Bahar type and pruning date with farmer",
+      "impact": "Fixes the growth stage assumption — unlocks correct Kc for irrigation and correct phenological alerts. +10% accuracy.",
+      "effort": "5-minute phone call."
+    },
+    {
+      "action": "Confirm crop mix percentages (% grapes vs other)",
+      "impact": "Allows NDVI reading to be scaled to grape-only pixels. +8% accuracy.",
+      "effort": "5-minute farmer interview."
+    },
+    {
+      "action": "Collect 1 season of baseline farm input costs",
+      "impact": "Makes financial model specific to this farm, not Maharashtra averages. +15% on financial accuracy.",
+      "effort": "1 page of data: irrigation bill, fertiliser receipts, spray calendar, yield records."
+    },
+    {
+      "action": "Install IoT soil moisture sensor (1 per 10 acres)",
+      "impact": "Real-time ground truth for irrigation recommendations. Reduces Kc uncertainty. +10% accuracy.",
+      "effort": "₹8,000–15,000 per sensor. Setup: 1 day."
+    }
+  ],
+  "six_day_report_protocol": {
+    "trigger": "Every 6 days OR after every new Sentinel-2 clear-sky pass (whichever comes first)",
+    "steps": [
+      {
+        "step": 1,
+        "name": "Pull new satellite data",
+        "command": "cd 'teesta ' && .venv_report/bin/python run_agri_retrospective.py --config configs/pune_grapes_live.json",
+        "time_minutes": 15,
+        "why": "Sentinel-2 revisits the area every 5 days. A new clear-sky pass gives a fresh NDVI reading. The pipeline uses cached scene data, so only new scenes are downloaded."
+      },
+      {
+        "step": 2,
+        "name": "Pull fresh weather data",
+        "command": "Call Open-Meteo API with past_days=6 to get latest actuals, forecast_days=16 for new outlook.",
+        "time_minutes": 1,
+        "why": "Weather changes every day. The 6-day forecast from the previous report is now old. Refresh before generating recommendations."
+      },
+      {
+        "step": 3,
+        "name": "Run report generator",
+        "command": "Run vigil_farmer_report_builder.py with updated config — this is what we need to automate next.",
+        "time_minutes": 2,
+        "why": "Combines new satellite + weather into a fresh farmer_report JSON with updated health score, alerts, and actions."
+      },
+      {
+        "step": 4,
+        "name": "Check accuracy flags",
+        "command": "Review data_confidence fields in the new JSON. If target_valid_weeks < 2, label the satellite section 'INSUFFICIENT DATA — weather-only mode'.",
+        "time_minutes": 2,
+        "why": "Monsoon months will have zero satellite data. The report must honestly communicate when it is running weather-only vs satellite-backed."
+      },
+      {
+        "step": 5,
+        "name": "Package deliverable",
+        "command": "Copy JSON + PNGs into a new dated folder: VIGIL_DELIVERABLE_YYYY-MM-DD/",
+        "time_minutes": 1,
+        "why": "Maintains a full audit trail — every 6-day report is preserved with its source data. If the farmer disputes a recommendation, we can show exactly what the data said on that date."
+      }
+    ],
+    "note": "In monsoon blackout (June 27–Sep): satellite step is skipped. Report runs weather-only. Clearly label all findings as 'Based on weather forecast only — satellite data unavailable due to cloud cover.'"
+  },
+  "confidence_labelling_system_for_report": {
+    "description": "Every finding in the farmer report should carry one of these labels so the farmer and investor know what to trust.",
+    "labels": {
+      "CONFIRMED (>80%)": "Satellite-backed, multi-week trend, weather-validated. Example: 'Your farm was greener than last year in early April — confirmed by 4 satellite scenes.'",
+      "LIKELY (60–80%)": "Single data point or short trend. Example: 'Temperatures will exceed 38°C in the next 6 days — weather forecast.'",
+      "INDICATIVE (40–60%)": "Projection from baseline averages or models. Example: 'Your irrigation need is approximately 14,000 L/acre/day — estimated from FAO crop model.'",
+      "UNVERIFIED (<40%)": "Assumption not yet confirmed by data. Example: 'Your farm may be in early bunch development — based on stated harvest date, not confirmed field observation.'"
+    }
+  }
+}

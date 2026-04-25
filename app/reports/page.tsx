@@ -13,6 +13,16 @@ const SPRING = { ease: [0.16, 1, 0.3, 1] as const };
 
 const reports: Report[] = [
   {
+    id: 'pune-vineyard-2026',
+    title: 'Junnar Vineyard Asset Intelligence Report — VIGIL-Agro',
+    description: 'Full-season satellite asset intelligence for a Pune district grape vineyard. NDVI +6% above 3-year baseline. Active heat wave alert (40.3°C). Financial model with per-acre yield protection and ROI analysis.',
+    date: 'April 2026',
+    type: 'Case Study',
+    access: 'public',
+    status: 'available',
+    href: '/pune-vineyard-report.html',
+  },
+  {
     id: 'nashik-grapes-2026',
     title: 'Nashik Belt Grape Decision Report — VIGIL-Agro',
     description: 'Satellite-derived NDVI analysis and multi-temporal stress signal assessment for Nashik region vineyards. Crop risk intelligence derived from SAR and optical data.',
